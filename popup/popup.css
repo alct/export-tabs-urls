@@ -1,0 +1,79 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #fff;
+    font-size: 1em;
+    min-width: 360px;
+    margin: 0; /* chrome */
+}
+h1 {
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 1rem 0 0 0;
+}
+.counter {
+    color: #ccc;
+    flex: 1 1 auto;
+    text-align: right;
+}
+p, h1 {
+    padding: 0 1rem;
+}
+p + p {
+    margin-top: 0;
+}
+input[type=checkbox] {
+    vertical-align: bottom;
+}
+textarea {
+    line-height: 1.4;
+    max-height: 28rem;
+    min-height: 20rem;
+    overflow-x: hidden;
+    padding: .5rem;
+    resize: vertical;
+    white-space: pre;
+    width: 100%;
+}
+.footer {
+    border-top: 1px solid #ccc;
+    display: flex;
+}
+.footer span {
+    background: #f0f0f0;
+    flex: 1 1 auto;
+    padding: .5rem 1.5rem;
+    text-align: center;
+}
+.footer span:hover {
+    background: #e2e2e2;
+}
+.footer span:focus,
+.footer span:active {
+    background: #d8d8d8;
+}
+.footer .export-button {
+    border-left: 1px solid #ccc;
+}
+.footer span.disabled,
+.footer span.disabled::before {
+    color: #999;
+    background-color: #f0f0f0;
+    opacity: .5;
+}
+.export-button::before,
+.copy-button::before {
+    content: '';
+    display: inline-block;
+    height: 16px;
+    vertical-align: -.1rem;
+    width: 22px;
+}
+.copy-button::before {
+    background: url('../img/copy-to-clipboard.svg') no-repeat;
+}
+.export-button::before {
+    background: url('../img/export-as-file.svg') no-repeat;
+}

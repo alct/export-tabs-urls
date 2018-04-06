@@ -1,0 +1,26 @@
+{
+    "appButtonDesc": {
+        "message": "Export Tabs URLs"
+    },
+    "appName": {
+        "message": "Export Tabs URLs"
+    },
+    "appDesc": {
+        "message": "Save a list of all opened tabs into a text file."
+    },
+    "includeTitles": {
+        "message": "Include titles"
+    },
+    "copyTabsToClipboard": {
+        "message": "Copy to clipboard"
+    },
+    "copiedToClipboard": {
+        "message": "The list has successfully been copied to your clipboard."
+    },
+    "notCopiedToClipboard": {
+        "message": "An error has occured while trying to copy the list to your clipboard."
+    },
+    "exportTabsAsFile": {
+        "message": "Export as file"
+    }
+}

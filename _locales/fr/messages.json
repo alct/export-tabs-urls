@@ -1,0 +1,26 @@
+{
+    "appButtonDesc": {
+        "message": "Export Tabs URLs"
+    },
+    "appName": {
+        "message": "Export Tabs URLs"
+    },
+    "appDesc": {
+        "message": "Sauvegarde les adresses et les titres des onglets ouverts."
+    },
+    "includeTitles": {
+        "message": "Inclure les titres"
+    },
+    "copyTabsToClipboard": {
+        "message": "Copier dans le presse-papier"
+    },
+    "copiedToClipboard": {
+        "message": "La liste a été copiée dans le presse-papier avec succès."
+    },
+    "notCopiedToClipboard": {
+        "message": "Une erreur est survenue lors de la tentative de copie dans le presse-papier."
+    },
+    "exportTabsAsFile": {
+        "message": "Exporter vers un fichier"
+    }
+}

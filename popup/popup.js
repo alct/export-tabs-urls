@@ -1,9 +1,13 @@
 var d = document
 var w = window
-var counter, copybutton, exportbutton, checkbox, textarea
+var counter, copybutton, exportbutton, checkbox, textarea, os
 
 // use proper namespace when run in Chrome
 if (typeof chrome === 'object') var browser = chrome
+
+browser.runtime.getPlatformInfo(function (info) {
+  os = info.os
+})
 
 w.addEventListener('load', function () {
   counter = d.getElementsByClassName('counter')[0]
@@ -39,7 +43,13 @@ w.addEventListener('load', function () {
   })
 
   exportbutton.addEventListener('click', function () {
-    download(textarea.value)
+    var list = textarea.value
+
+    // fix inconsistent behaviour on Windows
+    // see https://github.com/alct/export-tabs-urls/issues/2
+    if (os === 'win') list = textarea.value.replace(/\r?\n/g, '\r\n')
+
+    download(list)
   })
 
   updatePopup()

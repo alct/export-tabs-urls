@@ -6,7 +6,7 @@
         "message": "Export Tabs URLs"
     },
     "appDesc": {
-        "message": "Save a list of all opened tabs into a text file."
+        "message": "Save a list of all open tabs into a text file."
     },
     "includeTitles": {
         "message": "Include titles"

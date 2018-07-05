@@ -1,6 +1,6 @@
 # Export Tabs URLs
 
-[Export Tabs URLs](https://addons.mozilla.org/en-US/firefox/addon/export-tabs-urls-and-titles/) is a Web browser extension that allows to list the URLs of all the opened tabs (optionally include their title) and copy that list to clipboard or export it to a timestamped file.
+[Export Tabs URLs](https://addons.mozilla.org/en-US/firefox/addon/export-tabs-urls-and-titles/) is a Web browser extension that allows to list the URLs of all the open tabs (optionally include their title) and copy that list to clipboard or export it to a timestamped file.
 
 Among the existing extensions, I could not find one that was simple enough and/or had all the features that I needed, so I developed this one. It was also an excuse to play around with WebExtensions.
 

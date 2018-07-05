@@ -1,6 +1,6 @@
 var d = document
 var w = window
-var counter, copybutton, exportbutton, checkbox, textarea, os
+var checkbox, copybutton, counter, exportbutton, os, textarea
 
 // use proper namespace when run in Chrome
 if (typeof chrome === 'object') var browser = chrome
@@ -47,7 +47,7 @@ w.addEventListener('load', function () {
 
     // fix inconsistent behaviour on Windows
     // see https://github.com/alct/export-tabs-urls/issues/2
-    if (os === 'win') list = textarea.value.replace(/\r?\n/g, '\r\n')
+    if (os === 'win') list = list.replace(/\r?\n/g, '\r\n')
 
     download(list)
   })
@@ -68,7 +68,7 @@ function updatePopup () {
 
       if (checkbox.checked) format = '{title}\r\n{url}\r\n\r\n'
 
-      for (i = 0; i < totalNbTabs; i++) {
+      for (var i = 0; i < totalNbTabs; i++) {
         var uri = URI(tabs[i].url)
         var protocol = uri.protocol()
 

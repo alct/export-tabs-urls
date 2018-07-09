@@ -1,0 +1,26 @@
+{
+    "appButtonDesc": {
+        "message": "Export Tabs URLs"
+    },
+    "appName": {
+        "message": "Export Tabs URLs"
+    },
+    "appDesc": {
+        "message": "Speicher eine Liste aller offenen Tabs als Textdatei."
+    },
+    "includeTitles": {
+        "message": "Titel einschließen"
+    },
+    "copyTabsToClipboard": {
+        "message": "In die Zwischenablage kopieren"
+    },
+    "copiedToClipboard": {
+        "message": "Die Liste wurde erfolgreich in die Zwischenablagekopiert."
+    },
+    "notCopiedToClipboard": {
+        "message": "Ein Fehler ist bei der Speicherung in die Zwischenablageaufgetreten."
+    },
+    "exportTabsAsFile": {
+        "message": "Als Datei exportieren"
+    }
+}

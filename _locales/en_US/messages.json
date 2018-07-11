@@ -22,5 +22,8 @@
     },
     "exportTabsAsFile": {
         "message": "Export as file"
+    },
+    "limitToCurrentWindow": {
+        "message": "Limit to current window"
     }
 }

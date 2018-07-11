@@ -9,11 +9,20 @@
 
 <body>
     <h1>Export Tabs URLs <span class="counter"></span></h1>
+
     <p><textarea id="urls"></textarea></p>
-    <p>
-        <input type="checkbox" id="include-titles" />
-        <label for="include-titles" data-i18n="includeTitles"></label>
-    </p>
+
+    <div class="options">
+        <p>
+            <input type="checkbox" id="include-titles" />
+            <label for="include-titles" data-i18n="includeTitles"></label>
+        </p>
+
+        <p class="hidden">
+            <input type="checkbox" id="limit-to-current-window" />
+            <label for="limit-to-current-window" data-i18n="limitToCurrentWindow"></label>
+        </p>
+    </div>
 
     <div class="footer">
         <span class="copy-button" data-i18n="copyTabsToClipboard"></span>

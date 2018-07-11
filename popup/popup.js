@@ -1,6 +1,6 @@
 var d = document
 var w = window
-var checkbox, copybutton, counter, exportbutton, os, textarea
+var copyButton, counter, currentWindowId, exportButton, includeTitles, limitToWindow, nbWindows, os, textarea
 
 // use proper namespace when run in Chrome
 if (typeof chrome === 'object') var browser = chrome
@@ -9,19 +9,36 @@ browser.runtime.getPlatformInfo(function (info) {
   os = info.os
 })
 
+browser.windows.getAll(function (windowInfoArray) {
+  nbWindows = windowInfoArray.length
+})
+
+browser.windows.getLastFocused(function (currentWindow) {
+  currentWindowId = currentWindow.id
+})
+
 w.addEventListener('load', function () {
   counter = d.getElementsByClassName('counter')[0]
-  copybutton = d.getElementsByClassName('copy-button')[0]
-  exportbutton = d.getElementsByClassName('export-button')[0]
-  checkbox = d.getElementById('include-titles')
   textarea = d.getElementById('urls')
+  includeTitles = d.getElementById('include-titles')
+  limitToWindow = d.getElementById('limit-to-current-window')
+  copyButton = d.getElementsByClassName('copy-button')[0]
+  exportButton = d.getElementsByClassName('export-button')[0]
 
-  checkbox.addEventListener('change', function () {
+  if (nbWindows > 1) {
+    limitToWindow.parentNode.classList.remove('hidden')
+  }
+
+  includeTitles.addEventListener('change', function () {
     updatePopup()
   })
 
-  copybutton.addEventListener('click', function () {
-    if (copybutton.classList.contains('disabled')) return
+  limitToWindow.addEventListener('change', function () {
+    updatePopup()
+  })
+
+  copyButton.addEventListener('click', function () {
+    if (copyButton.classList.contains('disabled')) return
 
     textarea.select()
 
@@ -34,15 +51,15 @@ w.addEventListener('load', function () {
       'message': browser.i18n.getMessage(message)
     })
 
-    copybutton.classList.add('disabled')
+    copyButton.classList.add('disabled')
 
     setTimeout(function () {
       browser.notifications.clear('ExportTabsURLs')
-      copybutton.classList.remove('disabled')
+      copyButton.classList.remove('disabled')
     }, 3000)
   })
 
-  exportbutton.addEventListener('click', function () {
+  exportButton.addEventListener('click', function () {
     var list = textarea.value
 
     // fix inconsistent behaviour on Windows
@@ -66,9 +83,13 @@ function updatePopup () {
       var actualNbTabs = 0
       var totalNbTabs = tabs.length
 
-      if (checkbox.checked) format = '{title}\r\n{url}\r\n\r\n'
+      if (includeTitles.checked) format = '{title}\r\n{url}\r\n\r\n'
 
       for (var i = 0; i < totalNbTabs; i++) {
+        var tabWindowId = tabs[i].windowId
+
+        if (limitToWindow.checked && tabWindowId !== currentWindowId) continue
+
         var uri = URI(tabs[i].url)
         var protocol = uri.protocol()
 

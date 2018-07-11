@@ -77,3 +77,12 @@ textarea {
 .export-button::before {
     background: url('../img/export-as-file.svg') no-repeat;
 }
+.hidden {
+    display: none;
+}
+.options {
+    display: flex;
+}
+.options p {
+    margin-top: 0;
+}

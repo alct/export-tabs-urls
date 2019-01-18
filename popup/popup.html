@@ -1,31 +1,34 @@
 <!doctype html>
 <meta charset="utf-8">
 
-<script	src="../lib/URI.min.js"></script>
-<script	src="../lib/moment.min.js"></script>
+<script	src="/lib/URI.min.js"></script>
+<script	src="/lib/moment.min.js"></script>
+<script	src="/shared/shared.js"></script>
 <script	src="popup.js"></script>
 
+<link href="/shared/shared.css" rel="stylesheet" type="text/css">
 <link href="popup.css" rel="stylesheet" type="text/css">
 
 <body>
-    <h1>Export Tabs URLs <span class="counter"></span></h1>
+    <h1>Export Tabs URLs <span class="popup-counter"></span></h1>
 
-    <p><textarea id="urls"></textarea></p>
+    <p><textarea class="popup-textarea"></textarea></p>
 
     <div class="options">
         <p>
-            <input type="checkbox" id="include-titles" />
-            <label for="include-titles" data-i18n="includeTitles"></label>
+            <input type="checkbox" id="popup-format" />
+            <label for="popup-format" class="popup-label-format-custom hidden" data-i18n="popupLabelFormatCustom"></label>
+            <label for="popup-format" class="popup-label-format-titles" data-i18n="popupLabelFormatTitles"></label>
         </p>
 
         <p class="hidden">
-            <input type="checkbox" id="limit-to-current-window" />
-            <label for="limit-to-current-window" data-i18n="limitToCurrentWindow"></label>
+            <input type="checkbox" id="popup-limit-window" />
+            <label for="popup-limit-window" data-i18n="popupLimitWindow"></label>
         </p>
     </div>
 
     <div class="footer">
-        <span class="copy-button" data-i18n="copyTabsToClipboard"></span>
-        <span class="export-button" data-i18n="exportTabsAsFile"></span>
+        <span class="popup-button-copy" data-i18n="popupButtonCopy"></span>
+        <span class="popup-button-export" data-i18n="popupButtonExport"></span>
     </div>
 </body>

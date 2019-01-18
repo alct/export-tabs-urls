@@ -6,24 +6,39 @@
         "message": "Export Tabs URLs"
     },
     "appDesc": {
-        "message": "Sauvegarde les adresses et les titres des onglets ouverts."
+        "message": "Sauvegarde les adresses des onglets ouverts dans un fichier."
     },
-    "includeTitles": {
-        "message": "Inclure les titres"
+    "optionsFormatCustom": {
+        "message": "Format personnalisé"
     },
-    "copyTabsToClipboard": {
+    "optionsFormatCustomDescription": {
+        "message": "<p>Vous pouvez défénir un format personnalisé à la place de celui par défaut \"Inclure les titres\".</p><p>Vous pouvez utiliser n'impore quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{title}</code>: titre d'un onglet</li><li><code>{url}</code>: URL d'un onglet</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>[{title}]({url})\\r\\n</code></p>"
+    },
+    "optionsIgnoreNonHTTP": {
+        "message": "Ignorer les URLs non-HTTP(S)"
+    },
+    "optionsIgnoreNonHTTPDescription": {
+        "message": "<p>Cette option empêche Export Tabs URLs de lister les onglets dont l'URL scheme est différent de <code>http://</code> ou <code>https://</code>.</p>"
+    },
+    "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
+    },
+    "popupLabelFormatCustom": {
+        "message": "Format personnalisé"
+    },
+    "popupButtonExport": {
+        "message": "Exporter vers un fichier"
+    },
+    "popupLimitWindow": {
+        "message": "Limiter à la fenêtre actuelle"
+    },
+    "popupLabelFormatTitles": {
+        "message": "Inclure les titres"
     },
     "copiedToClipboard": {
         "message": "La liste a été copiée dans le presse-papier avec succès."
     },
     "notCopiedToClipboard": {
         "message": "Une erreur est survenue lors de la tentative de copie dans le presse-papier."
-    },
-    "exportTabsAsFile": {
-        "message": "Exporter vers un fichier"
-    },
-    "limitToCurrentWindow": {
-        "message": "Limiter à la fenêtre actuelle"
     }
 }

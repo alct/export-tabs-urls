@@ -1,0 +1,30 @@
+h1 {
+    padding-left: 0;
+}
+p {
+    padding: 0;
+}
+code {
+    background: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 85%;
+    padding: .2em .4rem;
+}
+.option  {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 1rem;
+}
+.option p {
+    padding: 0 1rem;
+}
+.option > p:first-child {
+    background: #f0f0f0;
+    margin-top: 0;
+    padding: .5rem 1rem;
+}
+
+.option label {
+    color: #000;
+}

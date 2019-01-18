@@ -8,22 +8,37 @@
     "appDesc": {
         "message": "Speicher eine Liste aller offenen Tabs als Textdatei."
     },
-    "includeTitles": {
-        "message": "Titel einschließen"
+    "optionsFormatCustom": {
+        "message": "Benutzerdefiniertes Format"
     },
-    "copyTabsToClipboard": {
+    "optionsFormatCustomDescription": {
+        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Kombination von Zeichen und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
+    },
+    "optionsIgnoreNonHTTP": {
+        "message": "Ignore non-HTTP(S) URLs"
+    },
+    "optionsIgnoreNonHTTPDescription": {
+        "message": "<p>This option prevent Export Tabs URLs from listing tabs whose URL scheme is different from <code>http://</code> or <code>https://</code>.</p>"
+    },
+    "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"
+    },
+    "popupButtonExport": {
+        "message": "Als Datei exportieren"
+    },
+    "popupLimitWindow": {
+        "message": "Auf das aktuelle Fenster begrenzen"
+    },
+    "popupLabelFormatCustom": {
+        "message": "Benutzerdefiniertes Format"
+    },
+    "popupLabelFormatTitles": {
+        "message": "Titel einschließen"
     },
     "copiedToClipboard": {
         "message": "Die Liste wurde erfolgreich in die Zwischenablagekopiert."
     },
     "notCopiedToClipboard": {
         "message": "Ein Fehler ist bei der Speicherung in die Zwischenablageaufgetreten."
-    },
-    "exportTabsAsFile": {
-        "message": "Als Datei exportieren"
-    },
-    "limitToCurrentWindow": {
-        "message": "Auf das aktuelle Fenster begrenzen"
     }
 }

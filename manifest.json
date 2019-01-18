@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "0.1.13",
+    "version": "0.2.0",
     "default_locale": "en_US",
     "icons": {
         "16": "img/icon.svg",
@@ -18,9 +18,14 @@
         "default_title": "__MSG_appButtonDesc__",
         "default_popup": "popup/popup.html"
     },
+    "options_ui": {
+        "page": "options/options.html",
+        "browser_style": true
+    },
     "permissions": [
         "clipboardWrite",
         "notifications",
+        "storage",
         "tabs"
     ]
 }

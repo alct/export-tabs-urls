@@ -1,9 +1,8 @@
-var d = document
-var w = window
-var copyButton, counter, currentWindowId, exportButton, includeTitles, limitToWindow, nbWindows, os, textarea
-
-// use proper namespace when run in Chrome
-if (typeof chrome === 'object') var browser = chrome
+var
+  popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
+  popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
+  currentWindowId, nbWindows, os,
+  optionsIgnoreNonHTTP, optionsFormatCustom
 
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
@@ -18,29 +17,33 @@ browser.windows.getLastFocused(function (currentWindow) {
 })
 
 w.addEventListener('load', function () {
-  counter = d.getElementsByClassName('counter')[0]
-  textarea = d.getElementById('urls')
-  includeTitles = d.getElementById('include-titles')
-  limitToWindow = d.getElementById('limit-to-current-window')
-  copyButton = d.getElementsByClassName('copy-button')[0]
-  exportButton = d.getElementsByClassName('export-button')[0]
+  popupCounter = d.getElementsByClassName('popup-counter')[0]
+  popupTextarea = d.getElementsByClassName('popup-textarea')[0]
+  popupFormat = d.getElementById('popup-format')
+  popupLabelFormatTitles = d.getElementsByClassName('popup-label-format-titles')[0]
+  popupLabelFormatCustom = d.getElementsByClassName('popup-label-format-custom')[0]
+  popupLimitWindow = d.getElementById('popup-limit-window')
+  popupButtonCopy = d.getElementsByClassName('popup-button-copy')[0]
+  popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
 
   if (nbWindows > 1) {
-    limitToWindow.parentNode.classList.remove('hidden')
+    popupLimitWindow.parentNode.classList.remove('hidden')
   }
 
-  includeTitles.addEventListener('change', function () {
+  popupFormat.addEventListener('change', function () {
+    saveStates()
     updatePopup()
   })
 
-  limitToWindow.addEventListener('change', function () {
+  popupLimitWindow.addEventListener('change', function () {
+    saveStates()
     updatePopup()
   })
 
-  copyButton.addEventListener('click', function () {
-    if (copyButton.classList.contains('disabled')) return
+  popupButtonCopy.addEventListener('click', function () {
+    if (popupButtonCopy.classList.contains('disabled')) return
 
-    textarea.select()
+    popupTextarea.select()
 
     var message = d.execCommand('copy') ? 'copiedToClipboard' : 'notCopiedToClipboard'
 
@@ -51,16 +54,16 @@ w.addEventListener('load', function () {
       'message': browser.i18n.getMessage(message)
     })
 
-    copyButton.classList.add('disabled')
+    popupButtonCopy.classList.add('disabled')
 
     setTimeout(function () {
       browser.notifications.clear('ExportTabsURLs')
-      copyButton.classList.remove('disabled')
+      popupButtonCopy.classList.remove('disabled')
     }, 3000)
   })
 
-  exportButton.addEventListener('click', function () {
-    var list = textarea.value
+  popupButtonExport.addEventListener('click', function () {
+    var list = popupTextarea.value
 
     // fix inconsistent behaviour on Windows
     // see https://github.com/alct/export-tabs-urls/issues/2
@@ -69,7 +72,8 @@ w.addEventListener('load', function () {
     download(list)
   })
 
-  updatePopup()
+  getOptions()
+  restoreStates()
 
   localization()
 })
@@ -83,33 +87,34 @@ function updatePopup () {
       var actualNbTabs = 0
       var totalNbTabs = tabs.length
 
-      if (includeTitles.checked) format = '{title}\r\n{url}\r\n\r\n'
+      if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
+
+      if (optionsFormatCustom) {
+        popupLabelFormatTitles.classList.add('hidden')
+        popupLabelFormatCustom.classList.remove('hidden')
+
+        if (popupFormat.checked) format = optionsFormatCustom.replace(/\\n/g, '\n').replace(/\\r/g, '\r')
+      }
 
       for (var i = 0; i < totalNbTabs; i++) {
         var tabWindowId = tabs[i].windowId
 
-        if (limitToWindow.checked && tabWindowId !== currentWindowId) continue
+        if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
 
         var uri = URI(tabs[i].url)
         var protocol = uri.protocol()
 
-        if (protocol === 'http' || protocol === 'https') {
+        if ((optionsIgnoreNonHTTP && (protocol === 'http' || protocol === 'https')) || !optionsIgnoreNonHTTP) {
           list += format.replace(/{title}/g, tabs[i].title)
                         .replace(/{url}/g, tabs[i].url)
           actualNbTabs += 1
         }
       }
 
-      textarea.value = list
-      counter.textContent = actualNbTabs
+      popupTextarea.value = list
+      popupCounter.textContent = actualNbTabs
     }
   )
-}
-
-function localization () {
-  d.querySelectorAll('[data-i18n]').forEach((node) => {
-    node.textContent = browser.i18n.getMessage(node.dataset.i18n)
-  })
 }
 
 function download (list) {
@@ -123,4 +128,43 @@ function download (list) {
   element.click()
 
   d.body.removeChild(element)
+}
+
+function restoreStates () {
+  let gettingItem = browser.storage.local.get({
+    'states': {
+      format: false,
+      popupLimitWindow: false
+    }
+  })
+
+  gettingItem.then(function (items) {
+    popupLimitWindow.checked = items.states.popupLimitWindow
+    popupFormat.checked = items.states.format
+
+    updatePopup()
+  })
+}
+
+function saveStates () {
+  browser.storage.local.set({
+    'states': {
+      format: popupFormat.checked,
+      popupLimitWindow: popupLimitWindow.checked
+    }
+  })
+}
+
+function getOptions () {
+  let gettingItem = browser.storage.local.get({
+    'options': {
+      ignoreNonHTTP: true,
+      formatCustom: ''
+    }
+  })
+
+  gettingItem.then(function (items) {
+    optionsIgnoreNonHTTP = items.options.ignoreNonHTTP
+    optionsFormatCustom = items.options.formatCustom
+  })
 }

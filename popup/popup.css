@@ -1,19 +1,4 @@
-* {
-    box-sizing: border-box;
-}
-body {
-    background: #fff;
-    font-size: 1em;
-    min-width: 360px;
-    margin: 0; /* chrome */
-}
-h1 {
-    display: flex;
-    font-size: 1.5rem;
-    font-weight: normal;
-    margin: 1rem 0 0 0;
-}
-.counter {
+.popup-counter {
     color: #ccc;
     flex: 1 1 auto;
     text-align: right;
@@ -21,13 +6,7 @@ h1 {
 p, h1 {
     padding: 0 1rem;
 }
-p + p {
-    margin-top: 0;
-}
-input[type=checkbox] {
-    vertical-align: bottom;
-}
-textarea {
+.popup-textarea {
     line-height: 1.4;
     max-height: 28rem;
     min-height: 20rem;
@@ -54,7 +33,7 @@ textarea {
 .footer span:active {
     background: #d8d8d8;
 }
-.footer .export-button {
+.footer .popup-button-export {
     border-left: 1px solid #ccc;
 }
 .footer span.disabled,
@@ -63,22 +42,19 @@ textarea {
     background-color: #f0f0f0;
     opacity: .5;
 }
-.export-button::before,
-.copy-button::before {
+.popup-button-copy::before,
+.popup-button-export::before {
     content: '';
     display: inline-block;
     height: 16px;
     vertical-align: -.1rem;
     width: 22px;
 }
-.copy-button::before {
+.popup-button-copy::before {
     background: url('../img/copy-to-clipboard.svg') no-repeat;
 }
-.export-button::before {
+.popup-button-export::before {
     background: url('../img/export-as-file.svg') no-repeat;
-}
-.hidden {
-    display: none;
 }
 .options {
     display: flex;

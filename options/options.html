@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script	src="/shared/shared.js"></script>
+<script	src="options.js"></script>
+
+<link href="/shared/shared.css" rel="stylesheet" type="text/css">
+<link href="options.css" rel="stylesheet" type="text/css">
+
+<body>
+    <h1>Options</h1>
+
+    <div class="option">
+        <p>
+            <input type="checkbox" id="options-ignore-non-http" />
+            <label for="options-ignore-non-http" data-i18n="optionsIgnoreNonHTTP"></label>
+        </p>
+        <div data-i18n="optionsIgnoreNonHTTPDescription"></div>
+    </div>
+
+    <div class="option">
+        <p>
+            <label for="options-format-custom" data-i18n="optionsFormatCustom"></label>:
+            <input type="text" id="options-format-custom" placeholder="none" />
+            <button type="button" id="options-button-reset-format">Reset</button>
+        </p>
+        <div data-i18n="optionsFormatCustomDescription"></div>
+    </div>
+</body>

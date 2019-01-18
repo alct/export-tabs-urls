@@ -9,7 +9,7 @@ Consider this add-on done (except for bugfixes). I may or may not add new featur
 - **Include titles** : ETU provides a default format which displays titles along tabs URLs ;
 - **Custom format** : optionally, custom patterns can be defined instead of the default "include titles" one (e.g. markdown) ;
 - **Limit to current window** : optionally, the list can be limited to the current window ;
-- **Do(n't) list non-HTTP(s) URLs** : optionally, ETU can list each and every tab, including cases where the URL scheme isn't HTTP(s)
+- **List non-HTTP(s) URLs** : optionally, ETU can list each and every tab, including cases where the URL scheme isn't HTTP(s)
 
 ## Screenshots
 

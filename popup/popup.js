@@ -1,16 +1,22 @@
 var
   popupButtonSettings, popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
-  currentWindowId, nbWindows, os,
+  currentWindowId, os,
   optionsIgnoreNonHTTP, optionsFormatCustom
 
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
 })
 
-browser.windows.getAll(function (windowInfoArray) {
-  nbWindows = windowInfoArray.length
-})
+function getNbWindows () {
+  let getting = browser.windows.getAll()
+
+  getting.then(function (windowInfoArray) {
+    if (windowInfoArray.length > 1) {
+      popupLimitWindow.parentNode.classList.remove('hidden')
+    }
+  })
+}
 
 browser.windows.getLastFocused(function (currentWindow) {
   currentWindowId = currentWindow.id
@@ -27,9 +33,7 @@ w.addEventListener('load', function () {
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
   popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
 
-  if (nbWindows > 1) {
-    popupLimitWindow.parentNode.classList.remove('hidden')
-  }
+  getNbWindows()
 
   popupFormat.addEventListener('change', function () {
     saveStates()

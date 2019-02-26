@@ -5,19 +5,20 @@ body {
     background: #fff;
     font-size: 1em;
     min-width: 360px;
-    margin: 0; /* chrome */
 }
 h1 {
-    display: flex;
     font-size: 1.5rem;
     font-weight: normal;
-    margin: 1rem 0 0 0;
 }
 p + p {
     margin-top: 0;
 }
 input[type="checkbox"] {
     vertical-align: bottom;
+}
+input[type="checkbox"],
+label {
+    cursor: pointer;
 }
 .hidden {
     display: none;

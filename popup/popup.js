@@ -1,5 +1,5 @@
 var
-  popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
+  popupButtonSettings, popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, nbWindows, os,
   optionsIgnoreNonHTTP, optionsFormatCustom
@@ -25,6 +25,7 @@ w.addEventListener('load', function () {
   popupLimitWindow = d.getElementById('popup-limit-window')
   popupButtonCopy = d.getElementsByClassName('popup-button-copy')[0]
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
+  popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
 
   if (nbWindows > 1) {
     popupLimitWindow.parentNode.classList.remove('hidden')
@@ -33,6 +34,10 @@ w.addEventListener('load', function () {
   popupFormat.addEventListener('change', function () {
     saveStates()
     updatePopup()
+  })
+
+  popupButtonSettings.addEventListener('click', function () {
+    browser.runtime.openOptionsPage()
   })
 
   popupLimitWindow.addEventListener('change', function () {

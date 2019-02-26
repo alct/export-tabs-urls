@@ -10,25 +10,32 @@
 <link href="popup.css" rel="stylesheet" type="text/css">
 
 <body>
-    <h1>Export Tabs URLs <span class="popup-counter"></span></h1>
+    <p class="popup-settings"><span class="popup-button-settings"></span></p>
 
-    <p><textarea class="popup-textarea"></textarea></p>
+    <main>
+        <header>
+            <h1>Export Tabs URLs</h1>
+            <p class="popup-counter"></p>
+        </header>
 
-    <div class="options">
-        <p>
-            <input type="checkbox" id="popup-format" />
-            <label for="popup-format" class="popup-label-format-custom hidden" data-i18n="popupLabelFormatCustom"></label>
-            <label for="popup-format" class="popup-label-format-titles" data-i18n="popupLabelFormatTitles"></label>
-        </p>
+        <p><textarea class="popup-textarea"></textarea></p>
 
-        <p class="hidden">
-            <input type="checkbox" id="popup-limit-window" />
-            <label for="popup-limit-window" data-i18n="popupLimitWindow"></label>
-        </p>
-    </div>
+        <div class="options">
+            <p>
+                <input type="checkbox" id="popup-format" />
+                <label for="popup-format" class="popup-label-format-custom hidden" data-i18n="popupLabelFormatCustom"></label>
+                <label for="popup-format" class="popup-label-format-titles" data-i18n="popupLabelFormatTitles"></label>
+            </p>
 
-    <div class="footer">
+            <p class="hidden">
+                <input type="checkbox" id="popup-limit-window" />
+                <label for="popup-limit-window" data-i18n="popupLimitWindow"></label>
+            </p>
+        </div>
+    </main>
+
+    <footer>
         <span class="popup-button-copy" data-i18n="popupButtonCopy"></span>
         <span class="popup-button-export" data-i18n="popupButtonExport"></span>
-    </div>
+    </footer>
 </body>

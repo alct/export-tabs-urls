@@ -2,7 +2,7 @@ var
   popupButtonSettings, popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-  optionsIgnoreNonHTTP, optionsFormatCustom
+  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom
 
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
@@ -107,7 +107,9 @@ function updatePopup () {
 
       for (var i = 0; i < totalNbTabs; i++) {
         var tabWindowId = tabs[i].windowId
+        var tabPinned = tabs[i].pinned
 
+        if (optionsIgnorePinned && tabPinned) continue
         if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
 
         var uri = URI(tabs[i].url)
@@ -168,12 +170,14 @@ function getOptions () {
   let gettingItem = browser.storage.local.get({
     'options': {
       ignoreNonHTTP: true,
+      ignorePinned: false,
       formatCustom: ''
     }
   })
 
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP
+    optionsIgnorePinned = items.options.ignorePinned
     optionsFormatCustom = items.options.formatCustom
   })
 }

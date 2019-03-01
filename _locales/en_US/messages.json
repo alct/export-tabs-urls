@@ -20,6 +20,12 @@
     "optionsIgnoreNonHTTPDescription": {
         "message": "<p>This option prevent Export Tabs URLs from listing tabs whose URL scheme is different from <code>http://</code> or <code>https://</code>.</p>"
     },
+    "optionsIgnorePinned": {
+        "message": "Ignore pinned tabs"
+    },
+    "optionsIgnorePinnedDescription": {
+        "message": "<p>This option prevent Export Tabs URLs from listing pinned tabs.</p>"
+    },
     "popupButtonCopy": {
         "message": "Copy to clipboard"
     },

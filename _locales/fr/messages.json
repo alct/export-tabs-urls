@@ -20,6 +20,12 @@
     "optionsIgnoreNonHTTPDescription": {
         "message": "<p>Cette option empêche Export Tabs URLs de lister les onglets dont l'URL scheme est différent de <code>http://</code> ou <code>https://</code>.</p>"
     },
+    "optionsIgnorePinned": {
+        "message": "Ignore les onglets épinglés"
+    },
+    "optionsIgnorePinnedDescription": {
+        "message": "<p>Cette option empêche Export Tabs URLs de lister les onglets épinglés.</p>"
+    },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
     },

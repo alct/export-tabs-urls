@@ -16,7 +16,8 @@ p {
 main {
     padding: 1rem;
 }
-main > * + * {
+main > * + *,
+main > p + p {
     margin-top: 1rem;
 }
 header {
@@ -81,15 +82,53 @@ header h1 {
     transition: transform .2s .2s;
 }
 
+.popup-filter-tabs {
+    background: url('../img/filter.svg') no-repeat .5rem center;
+    background-size: 1.1rem 1.1rem;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    padding: .5rem .5rem .5rem 2.1rem;
+    width: 100%;
+}
+.popup-filter-tabs:focus,
+.popup-filter-tabs:not(:placeholder-shown) {
+
+}
+
+:not(.hidden) + .popup-textarea-container {
+    margin-top: 0;
+}
+:not(.hidden) + .popup-textarea-container::before {
+    position: absolute;
+    display: block;
+    content: '';
+    background: #ccc;
+    height: 1px;
+    width: calc(100% - 3rem);
+    margin-left: .5rem;
+    z-index: 9999;
+}
+:not(.hidden) + .popup-textarea-container.has-scrollbar::before {
+    width: calc(100% - 3.8rem);
+}
+.hidden + .popup-textarea-container .popup-textarea {
+    margin-top: 0;
+    border-top-width: 1px;
+    padding-top: .5rem;
+}
 .popup-textarea {
     line-height: 1.4;
+    margin-top: -1px;
     max-height: 28rem;
     min-height: 20rem;
     overflow-x: hidden;
-    padding: .5rem;
+    padding: .75rem .5rem .5rem .5rem;
     resize: vertical;
     white-space: pre;
     width: 100%;
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    z-index: 800;
 }
 
 .options {

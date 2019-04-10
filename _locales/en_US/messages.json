@@ -26,6 +26,12 @@
     "optionsIgnorePinnedDescription": {
         "message": "<p>This option prevent Export Tabs URLs from listing pinned tabs.</p>"
     },
+    "optionsFilterTabs": {
+        "message": "Enable tabs filtering"
+    },
+    "optionsFilterTabsDescription": {
+        "message": "<p>This option adds a filtering feature to Export Tabs URLs.</p><p>Both the title and URL are searched against (even if not displayed).</p><p>You can use <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_special_characters\">regular expressions</a>.</p><p>Example:</p><ul><li><code>fe?ather</code>: matches both father and feather</li><li><code>(stackoverflow|github).com</code>: matches both stackoverflow.com and github.com</li></ul>"
+    },
     "popupButtonCopy": {
         "message": "Copy to clipboard"
     },

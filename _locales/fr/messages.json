@@ -26,6 +26,12 @@
     "optionsIgnorePinnedDescription": {
         "message": "<p>Cette option empêche Export Tabs URLs de lister les onglets épinglés.</p>"
     },
+    "optionsFilterTabs": {
+        "message": "Activer le filtrage des onglets"
+    },
+    "optionsFilterTabsDescription": {
+        "message": "<p>Cette option ajoute une fonctionnalité de filtrage à Export Tabs URLs.</p><p>Tant le titre que l'URL font l'objet du filtrage (même s'ils ne sont pas affichés).</p><p>Vous pouvez utiliser des <a href=\"https://developer.mozilla.org/fr/docs/Web/JavaScript/Guide/Expressions_r%C3%A9guli%C3%A8res#Utiliser_des_caract%C3%A8res_sp%C3%A9ciaux\">expressions régulières</a>.</p><p>Exemple:</p><ul><li><code>po?ire</code>: retournera poire et pire</li><li><code>(stackoverflow|github).com</code>: retournera stackoverflow.com et github.com</li></ul>"
+    },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
     },

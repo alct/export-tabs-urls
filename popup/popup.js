@@ -1,8 +1,9 @@
 var
-  popupButtonSettings, popupButtonCopy, popupButtonExport, popupCounter, popupTextarea,
+  popupButtonSettings, popupCounter, popupTextarea, popupTextareaContainer, popupFilterTabs, popupFilterTabsContainer,
+  popupButtonCopy, popupButtonExport,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom
+  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs
 
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
@@ -24,7 +25,10 @@ browser.windows.getLastFocused(function (currentWindow) {
 
 w.addEventListener('load', function () {
   popupCounter = d.getElementsByClassName('popup-counter')[0]
+  popupFilterTabs = d.getElementsByClassName('popup-filter-tabs')[0]
+  popupFilterTabsContainer = d.getElementsByClassName('popup-filter-tabs-container')[0]
   popupTextarea = d.getElementsByClassName('popup-textarea')[0]
+  popupTextareaContainer = d.getElementsByClassName('popup-textarea-container')[0]
   popupFormat = d.getElementById('popup-format')
   popupLabelFormatTitles = d.getElementsByClassName('popup-label-format-titles')[0]
   popupLabelFormatCustom = d.getElementsByClassName('popup-label-format-custom')[0]
@@ -46,6 +50,10 @@ w.addEventListener('load', function () {
 
   popupLimitWindow.addEventListener('change', function () {
     saveStates()
+    updatePopup()
+  })
+
+  popupFilterTabs.addEventListener('input', function () {
     updatePopup()
   })
 
@@ -95,6 +103,8 @@ function updatePopup () {
       var format = '{url}\r\n'
       var actualNbTabs = 0
       var totalNbTabs = tabs.length
+      var nbFilterMatch = 0
+      var userInput = popupFilterTabs.value
 
       if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
 
@@ -104,6 +114,8 @@ function updatePopup () {
 
         if (popupFormat.checked) format = optionsFormatCustom.replace(/\\n/g, '\n').replace(/\\r/g, '\r')
       }
+
+      if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
 
       for (var i = 0; i < totalNbTabs; i++) {
         var tabWindowId = tabs[i].windowId
@@ -116,16 +128,34 @@ function updatePopup () {
         var protocol = uri.protocol()
 
         if ((optionsIgnoreNonHTTP && (protocol === 'http' || protocol === 'https')) || !optionsIgnoreNonHTTP) {
-          list += format.replace(/{title}/g, tabs[i].title)
-                        .replace(/{url}/g, tabs[i].url)
           actualNbTabs += 1
+
+          if (filterMatch(userInput, [ tabs[i].title, tabs[i].url ]) || userInput === '') {
+            nbFilterMatch += 1
+
+            list += format.replace(/{title}/g, tabs[i].title)
+                          .replace(/{url}/g, tabs[i].url)
+          }
         }
       }
 
       popupTextarea.value = list
-      popupCounter.textContent = actualNbTabs
+      popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
+
+      updateSeparatorStyle()
+      setFocusOnFilter()
     }
   )
+}
+
+function setFocusOnFilter () {
+  popupFilterTabs.focus()
+}
+
+function updateSeparatorStyle () {
+  popupTextareaContainer.classList.remove('has-scrollbar')
+
+  if (scrollbarIsVisible(popupTextarea)) popupTextareaContainer.classList.add('has-scrollbar')
 }
 
 function download (list) {
@@ -171,7 +201,8 @@ function getOptions () {
     'options': {
       ignoreNonHTTP: true,
       ignorePinned: false,
-      formatCustom: ''
+      formatCustom: '',
+      filterTabs: true
     }
   })
 
@@ -179,5 +210,6 @@ function getOptions () {
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP
     optionsIgnorePinned = items.options.ignorePinned
     optionsFormatCustom = items.options.formatCustom
+    optionsFilterTabs = items.options.filterTabs
   })
 }

@@ -120,18 +120,19 @@ function updatePopup () {
       for (var i = 0; i < totalNbTabs; i++) {
         var tabWindowId = tabs[i].windowId
         var tabPinned = tabs[i].pinned
+        var tabURL = tabs[i].url
+        var tabTitle = tabs[i].title
 
         if (optionsIgnorePinned && tabPinned) continue
         if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
 
-        if ((optionsIgnoreNonHTTP && tabs[i].url.startsWith('http')) || !optionsIgnoreNonHTTP) {
+        if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP) {
           actualNbTabs += 1
 
-          if (filterMatch(userInput, [ tabs[i].title, tabs[i].url ]) || userInput === '') {
+          if (filterMatch(userInput, [ tabTitle, tabURL ]) || userInput === '') {
             nbFilterMatch += 1
 
-            list += format.replace(/{title}/g, tabs[i].title)
-                          .replace(/{url}/g, tabs[i].url)
+            list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL)
           }
         }
       }
@@ -140,13 +141,20 @@ function updatePopup () {
       popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
 
       updateSeparatorStyle()
-      setFocusOnFilter()
+      setFocusTo(popupFilterTabs)
     }
   )
 }
 
-function setFocusOnFilter () {
-  popupFilterTabs.focus()
+function filterMatch (needle, haystack) {
+  var regex = new RegExp(needle, 'i')
+  var match = false
+
+  haystack.forEach(function (element) {
+    if (regex.test(element)) match = true
+  })
+
+  return match
 }
 
 function updateSeparatorStyle () {

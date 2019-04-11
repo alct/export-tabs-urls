@@ -124,10 +124,7 @@ function updatePopup () {
         if (optionsIgnorePinned && tabPinned) continue
         if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
 
-        var uri = URI(tabs[i].url)
-        var protocol = uri.protocol()
-
-        if ((optionsIgnoreNonHTTP && (protocol === 'http' || protocol === 'https')) || !optionsIgnoreNonHTTP) {
+        if ((optionsIgnoreNonHTTP && tabs[i].url.startsWith('http')) || !optionsIgnoreNonHTTP) {
           actualNbTabs += 1
 
           if (filterMatch(userInput, [ tabs[i].title, tabs[i].url ]) || userInput === '') {

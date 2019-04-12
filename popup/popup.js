@@ -9,16 +9,6 @@ browser.runtime.getPlatformInfo(function (info) {
   os = info.os
 })
 
-function getNbWindows () {
-  let getting = browser.windows.getAll()
-
-  getting.then(function (windowInfoArray) {
-    if (windowInfoArray.length > 1) {
-      popupLimitWindow.parentNode.classList.remove('hidden')
-    }
-  })
-}
-
 browser.windows.getLastFocused(function (currentWindow) {
   currentWindowId = currentWindow.id
 })
@@ -37,10 +27,10 @@ w.addEventListener('load', function () {
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
   popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
 
-  getNbWindows()
+  setLimitWindowVisibility()
 
   popupFormat.addEventListener('change', function () {
-    saveStates()
+    savePopupStates()
     updatePopup()
   })
 
@@ -49,7 +39,7 @@ w.addEventListener('load', function () {
   })
 
   popupLimitWindow.addEventListener('change', function () {
-    saveStates()
+    savePopupStates()
     updatePopup()
   })
 
@@ -58,39 +48,15 @@ w.addEventListener('load', function () {
   })
 
   popupButtonCopy.addEventListener('click', function () {
-    if (popupButtonCopy.classList.contains('disabled')) return
-
-    popupTextarea.select()
-
-    var message = d.execCommand('copy') ? 'copiedToClipboard' : 'notCopiedToClipboard'
-
-    browser.notifications.create('ExportTabsURLs', {
-      'type': 'basic',
-      'title': browser.i18n.getMessage('appName'),
-      'iconUrl': '../img/icon.svg',
-      'message': browser.i18n.getMessage(message)
-    })
-
-    popupButtonCopy.classList.add('disabled')
-
-    setTimeout(function () {
-      browser.notifications.clear('ExportTabsURLs')
-      popupButtonCopy.classList.remove('disabled')
-    }, 3000)
+    copyToClipboard()
   })
 
   popupButtonExport.addEventListener('click', function () {
-    var list = popupTextarea.value
-
-    // fix inconsistent behaviour on Windows
-    // see https://github.com/alct/export-tabs-urls/issues/2
-    if (os === 'win') list = list.replace(/\r?\n/g, '\r\n')
-
-    download(list)
+    download()
   })
 
   getOptions()
-  restoreStates()
+  restorePopupStates()
 
   localization()
 })
@@ -140,8 +106,8 @@ function updatePopup () {
       popupTextarea.value = list
       popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
 
-      updateSeparatorStyle()
-      setFocusTo(popupFilterTabs)
+      setSeparatorStyle()
+      popupFilterTabs.focus()
     }
   )
 }
@@ -157,32 +123,64 @@ function filterMatch (needle, haystack) {
   return match
 }
 
-function updateSeparatorStyle () {
-  popupTextareaContainer.classList.remove('has-scrollbar')
-
-  if (scrollbarIsVisible(popupTextarea)) popupTextareaContainer.classList.add('has-scrollbar')
+function setSeparatorStyle () {
+  if (hasScrollbar(popupTextarea)) {
+    popupTextareaContainer.classList.add('has-scrollbar')
+  } else {
+    popupTextareaContainer.classList.remove('has-scrollbar')
+  }
 }
 
-function download (list) {
+function setLimitWindowVisibility () {
+  let getting = browser.windows.getAll()
+
+  getting.then(function (windowInfoArray) {
+    if (windowInfoArray.length > 1) {
+      popupLimitWindow.parentNode.classList.remove('hidden')
+    }
+  })
+}
+
+function copyToClipboard () {
+  if (popupButtonCopy.classList.contains('disabled')) return
+
+  popupTextarea.select()
+
+  var message = d.execCommand('copy') ? 'copiedToClipboard' : 'notCopiedToClipboard'
+
+  browser.notifications.create('ExportTabsURLs', {
+    'type': 'basic',
+    'title': browser.i18n.getMessage('appName'),
+    'iconUrl': '../img/icon.svg',
+    'message': browser.i18n.getMessage(message)
+  })
+
+  popupButtonCopy.classList.add('disabled')
+
+  setTimeout(function () {
+    browser.notifications.clear('ExportTabsURLs')
+    popupButtonCopy.classList.remove('disabled')
+  }, 3000)
+}
+
+function download () {
+  var list = popupTextarea.value
+
+  // fix inconsistent behaviour on Windows, see https://github.com/alct/export-tabs-urls/issues/2
+  if (os === 'win') list = list.replace(/\r?\n/g, '\r\n')
+
   var element = d.createElement('a')
   element.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(list)
   element.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.txt'
   element.style.display = 'none'
 
   d.body.appendChild(element)
-
   element.click()
-
   d.body.removeChild(element)
 }
 
-function restoreStates () {
-  let gettingItem = browser.storage.local.get({
-    'states': {
-      format: false,
-      popupLimitWindow: false
-    }
-  })
+function restorePopupStates () {
+  let gettingItem = browser.storage.local.get(defaultPopupStates)
 
   gettingItem.then(function (items) {
     popupLimitWindow.checked = items.states.popupLimitWindow
@@ -192,7 +190,7 @@ function restoreStates () {
   })
 }
 
-function saveStates () {
+function savePopupStates () {
   browser.storage.local.set({
     'states': {
       format: popupFormat.checked,
@@ -202,14 +200,7 @@ function saveStates () {
 }
 
 function getOptions () {
-  let gettingItem = browser.storage.local.get({
-    'options': {
-      ignoreNonHTTP: true,
-      ignorePinned: false,
-      formatCustom: '',
-      filterTabs: true
-    }
-  })
+  let gettingItem = browser.storage.local.get(defaultOptions)
 
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP

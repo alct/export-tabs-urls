@@ -18,12 +18,12 @@ w.addEventListener('load', function () {
   optionsButtonResetFormat.addEventListener('click', function () {
     optionsFormatCustom.value = ''
     saveOptions()
-    toggleOptionsButtonResetFormat()
+    setOptionsButtonResetFormatVisibility()
   })
 
   optionsFormatCustom.addEventListener('input', function () {
     saveOptions()
-    toggleOptionsButtonResetFormat()
+    setOptionsButtonResetFormatVisibility()
   })
 
   optionsFilterTabs.addEventListener('change', function () {
@@ -34,7 +34,7 @@ w.addEventListener('load', function () {
   localization()
 })
 
-function toggleOptionsButtonResetFormat () {
+function setOptionsButtonResetFormatVisibility () {
   if (optionsFormatCustom.value !== '') {
     optionsButtonResetFormat.classList.remove('hidden')
   } else {
@@ -43,14 +43,7 @@ function toggleOptionsButtonResetFormat () {
 }
 
 function restoreOptions () {
-  let gettingItem = browser.storage.local.get({
-    'options': {
-      ignoreNonHTTP: true,
-      ignorePinned: false,
-      formatCustom: '',
-      filterTabs: true
-    }
-  })
+  let gettingItem = browser.storage.local.get(defaultOptions)
 
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP
@@ -58,7 +51,7 @@ function restoreOptions () {
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
 
-    toggleOptionsButtonResetFormat()
+    setOptionsButtonResetFormatVisibility()
   })
 }
 

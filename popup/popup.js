@@ -5,6 +5,13 @@ var
   currentWindowId, os,
   optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs
 
+var defaultPopupStates = {
+  'states': {
+    format: false,
+    popupLimitWindow: false
+  }
+}
+
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
 })

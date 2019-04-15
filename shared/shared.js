@@ -10,13 +10,6 @@ var defaultOptions = {
   }
 }
 
-var defaultPopupStates = {
-  'states': {
-    format: false,
-    popupLimitWindow: false
-  }
-}
-
 function localization () {
   d.querySelectorAll('[data-i18n]').forEach((node) => {
     node.innerHTML = browser.i18n.getMessage(node.dataset.i18n)

@@ -11,6 +11,12 @@
     "optionsFormatCustom": {
         "message": "Custom format"
     },
+    "optionsFormatCustomPlaceholder": {
+        "message": "none"
+    },
+    "optionsButtonResetFormat": {
+        "message": "Reset"
+    },
     "optionsFormatCustomDescription": {
         "message": "<p>You can define a custom format instead of the default \"Include titles\" one.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>[{title}]({url})\\r\\n</code></p>"
     },
@@ -31,6 +37,9 @@
     },
     "optionsFilterTabsDescription": {
         "message": "<p>This option adds a filtering feature to Export Tabs URLs.</p><p>Both the title and URL are searched against (even if not displayed).</p><p>You can use <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_special_characters\">regular expressions</a>.</p><p>Example:</p><ul><li><code>fe?ather</code>: matches both father and feather</li><li><code>(stackoverflow|github).com</code>: matches both stackoverflow.com and github.com</li></ul>"
+    },
+    "popupFilterTabsPlaceholder": {
+        "message": "Filter tabs"
     },
     "popupButtonCopy": {
         "message": "Copy to clipboard"

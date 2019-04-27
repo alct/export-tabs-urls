@@ -105,7 +105,7 @@ function updatePopup () {
           if (filterMatch(userInput, [ tabTitle, tabURL ]) || userInput === '') {
             nbFilterMatch += 1
 
-            list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL)
+            list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId)
           }
         }
       }

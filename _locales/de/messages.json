@@ -18,7 +18,7 @@
         "message": "Rücksetzen"
     },
     "optionsFormatCustomDescription": {
-        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Kombination von Zeichen und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
+        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Kombination von Zeichen und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
         "message": "Ignore non-HTTP(S) URLs"

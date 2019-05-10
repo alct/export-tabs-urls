@@ -15,31 +15,31 @@
         "message": "keiner"
     },
     "optionsButtonResetFormat": {
-        "message": "Rücksetzen"
+        "message": "Zurücksetzen"
     },
     "optionsFormatCustomDescription": {
-        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Kombination von Zeichen und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
+         "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
-        "message": "Ignore non-HTTP(S) URLs"
+         "message": "Ignoriere nicht-HTTP(S) URLs"
     },
     "optionsIgnoreNonHTTPDescription": {
-        "message": "<p>This option prevent Export Tabs URLs from listing tabs whose URL scheme is different from <code>http://</code> or <code>https://</code>.</p>"
+         "message": "<p>Diese Einstellung verhindert Export Tabs URLs vom Anzeigen von Tabs, dessen URL von <code>http://</code> or <code>https://</code>. abweicht.</p>"
     },
     "optionsIgnorePinned": {
-        "message": "Ignore pinned tabs"
+         "message": "Ignoriere angeheftete Tabs"
     },
     "optionsIgnorePinnedDescription": {
-        "message": "<p>This option prevent Export Tabs URLs from listing pinned tabs.</p>"
+         "message": "<p> Diese Einstellung verhindert Export Tabs URLs vom Anzeigen von angehefteten Tabs.</p>"
     },
     "optionsFilterTabs": {
-        "message": "Enable tabs filtering"
+         "message": "Aktiviere das Filtern von Tabs"
     },
     "optionsFilterTabsDescription": {
-        "message": "<p>This option adds a filtering feature to Export Tabs URLs.</p><p>Both the title and URL are searched against (even if not displayed).</p><p>You can use <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Using_special_characters\">regular expressions</a>.</p><p>Example:</p><ul><li><code>fe?ather</code>: matches both father and feather</li><li><code>(stackoverflow|github).com</code>: matches both stackoverflow.com and github.com</li></ul>"
+         "message": "<p>Diese Einstellung fügt Export Tabs URLs eine Filterfunktion hinzu.</p><p>Sowohl Titel als URL werden durchsucht (auch ausgeblendete).</p><p>Sie können <a href=\"https://developer.mozilla.org/de/docs/Web/JavaScript/Guide/Regular_Expressions#Verwendung_von_speziellen_Zeichen\">Reguläre Ausdrücke (RegEx) verwenden</a>.</p><p>Beispiel:</p><ul><li><code>fe?ather</code>: passt zu father und feather</li><li><code>(stackoverflow|github).com</code>: passt zu  stackoverflow.com und github.com</li></ul>"
     },
     "popupFilterTabsPlaceholder": {
-        "message": "Filter tabs"
+         "message": "Filter Tabs"
     },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"
@@ -60,6 +60,6 @@
         "message": "Die Liste wurde erfolgreich in die Zwischenablagekopiert."
     },
     "notCopiedToClipboard": {
-        "message": "Ein Fehler ist bei der Speicherung in die Zwischenablageaufgetreten."
+         "message": "Beim Speichern in die Zwischenablage ist ein Fehler aufgetreten."
     }
 }

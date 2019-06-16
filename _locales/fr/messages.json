@@ -41,6 +41,15 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filtrer les onglets"
     },
+    "optionsCustomTitle": {
+        "message": "Titre personnalisé"
+    },
+    "optionsCustomTitlePlaceholder": {
+        "message": "aucun"
+    },
+    "optionsCustomTitleDescription": {
+        "message": "<p>Vous pouvez défénir un titre personnalisé ici.</p>"
+    },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
     },

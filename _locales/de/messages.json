@@ -41,6 +41,15 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filter Tabs"
     },
+    "optionsCustomTitle": {
+        "message": "Benutzerdefinierter Titel"
+    },
+    "optionsCustomTitlePlaceholder": {
+        "message": "keiner"
+    },
+    "optionsCustomTitleDescription": {
+        "message": "<p>Sie können hier einen benutzerdefinierten Titel eintragen.</p>"
+    },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"
     },

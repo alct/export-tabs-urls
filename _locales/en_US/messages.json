@@ -41,6 +41,15 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filter tabs"
     },
+    "optionsCustomTitle": {
+        "message": "Custom title"
+    },
+    "optionsCustomTitlePlaceholder": {
+        "message": "none"
+    },
+    "optionsCustomTitleDescription": {
+        "message": "<p>You may define a custom title here.</p>"
+    },
     "popupButtonCopy": {
         "message": "Copy to clipboard"
     },

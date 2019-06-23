@@ -112,7 +112,7 @@ function updatePopup () {
 
       popupTextarea.value = ""
       if (optionsCustomTitle) {
-        title = optionsCustomTitle.replace(/\\n/g, '\n').replace(/\\r/g, '\r')  + "\n\n"
+        title = optionsCustomTitle.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num_tabs}/g, actualNbTabs)
         popupTextarea.value += title
       }
 

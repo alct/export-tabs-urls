@@ -41,14 +41,14 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filter tabs"
     },
-    "optionsCustomTitle": {
-        "message": "Custom title"
+    "optionsCustomHeader": {
+        "message": "Custom header"
     },
-    "optionsCustomTitlePlaceholder": {
+    "optionsCustomHeaderPlaceholder": {
         "message": "none"
     },
-    "optionsCustomTitleDescription": {
-        "message": "<p>You may define a custom title here.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{num_tabs}</code>: number of tabs</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>From Export Tabs URLs (# links: {num_tabs})\\r\\n\\r\\n\\r\\n</code></p>"
+    "optionsCustomHeaderDescription": {
+        "message": "<p>You may define a custom header here.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{num-tabs}</code>: number of tabs</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>From Export Tabs URLs (# links: {num-tabs})</code></p>"
     },
     "popupButtonCopy": {
         "message": "Copy to clipboard"

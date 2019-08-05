@@ -41,14 +41,14 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filtrer les onglets"
     },
-    "optionsCustomTitle": {
-        "message": "Titre personnalisé"
+    "optionsCustomHeader": {
+        "message": "Entête personnalisée"
     },
-    "optionsCustomTitlePlaceholder": {
+    "optionsCustomHeaderPlaceholder": {
         "message": "aucun"
     },
-    "optionsCustomTitleDescription": {
-        "message": "<p>Vous pouvez défénir un titre personnalisé ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{num_tabs}</code>: nombre d'onglets</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>From Export Tabs URLs (# links: {num_tabs})\\r\\n\\r\\n\\r\\n</code></p>"
+    "optionsCustomHeaderDescription": {
+        "message": "<p>Vous pouvez défénir une entête personnalisée ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{num-tabs}</code>: nombre d'onglets</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>Exportés depuis Export Tabs URLs (# liens: {num-tabs})</code></p>"
     },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"

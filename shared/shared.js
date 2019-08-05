@@ -7,7 +7,7 @@ var defaultOptions = {
     ignorePinned: false,
     formatCustom: '',
     filterTabs: true,
-    customTitle: ''
+    customHeader: ''
   }
 }
 

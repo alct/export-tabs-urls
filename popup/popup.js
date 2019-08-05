@@ -3,7 +3,7 @@ var
   popupButtonCopy, popupButtonExport,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs
+  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader
 
 var defaultPopupStates = {
   'states': {
@@ -73,6 +73,7 @@ function updatePopup () {
     {},
     function (tabs) {
       var list = ''
+      var header = ''
       var format = '{url}\r\n'
       var actualNbTabs = 0
       var totalNbTabs = tabs.length
@@ -110,7 +111,14 @@ function updatePopup () {
         }
       }
 
-      popupTextarea.value = list
+      popupTextarea.value = ""
+
+      if (optionsCustomHeader) {
+        header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, actualNbTabs)
+        popupTextarea.value += header + '\r\n\r\n'
+      }
+
+      popupTextarea.value += list
       popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
 
       setSeparatorStyle()
@@ -214,5 +222,6 @@ function getOptions () {
     optionsIgnorePinned = items.options.ignorePinned
     optionsFormatCustom = items.options.formatCustom
     optionsFilterTabs = items.options.filterTabs
+    optionsCustomHeader = items.options.customHeader
   })
 }

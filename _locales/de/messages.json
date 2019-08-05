@@ -17,6 +17,9 @@
     "optionsButtonResetFormat": {
         "message": "Zurücksetzen"
     },
+    "optionsButtonResetHeader": {
+        "message": "Zurücksetzen"
+    },
     "optionsFormatCustomDescription": {
         "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
     },
@@ -40,6 +43,15 @@
     },
     "popupFilterTabsPlaceholder": {
         "message": "Filter Tabs"
+    },
+    "optionsCustomHeader": {
+        "message": "Benutzerdefinierter Header"
+    },
+    "optionsCustomHeaderPlaceholder": {
+        "message": "keiner"
+    },
+    "optionsCustomHeaderDescription": {
+        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>From Export Tabs URLs (# links: {num-tabs})</code></p>"
     },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"

@@ -1,4 +1,4 @@
-var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs
+var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs, optionsCustomHeader, optionsButtonResetHeader
 
 w.addEventListener('load', function () {
   optionsIgnoreNonHTTP = d.getElementById('options-ignore-non-http')
@@ -6,6 +6,8 @@ w.addEventListener('load', function () {
   optionsFormatCustom = d.getElementById('options-format-custom')
   optionsButtonResetFormat = d.getElementById('options-button-reset-format')
   optionsFilterTabs = d.getElementById('options-filter-tabs')
+  optionsCustomHeader = d.getElementById('options-custom-header')
+  optionsButtonResetHeader = d.getElementById('options-button-reset-header')
 
   optionsIgnoreNonHTTP.addEventListener('change', function () {
     saveOptions()
@@ -30,6 +32,17 @@ w.addEventListener('load', function () {
     saveOptions()
   })
 
+  optionsButtonResetHeader.addEventListener('click', function () {
+    optionsCustomHeader.value = ''
+    saveOptions()
+    setOptionsButtonResetHeaderVisibility()
+  })
+
+  optionsCustomHeader.addEventListener('input', function () {
+    saveOptions()
+    setOptionsButtonResetHeaderVisibility()
+  })
+
   restoreOptions()
   localization()
 })
@@ -42,6 +55,14 @@ function setOptionsButtonResetFormatVisibility () {
   }
 }
 
+function setOptionsButtonResetHeaderVisibility () {
+  if (optionsCustomHeader.value !== '') {
+    optionsButtonResetHeader.classList.remove('hidden')
+  } else {
+    optionsButtonResetHeader.classList.add('hidden')
+  }
+}
+
 function restoreOptions () {
   let gettingItem = browser.storage.local.get(defaultOptions)
 
@@ -50,8 +71,10 @@ function restoreOptions () {
     optionsIgnorePinned.checked = items.options.ignorePinned
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
+    optionsCustomHeader.value = items.options.customHeader
 
     setOptionsButtonResetFormatVisibility()
+    setOptionsButtonResetHeaderVisibility()
   })
 }
 
@@ -61,7 +84,8 @@ function saveOptions () {
       ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
       ignorePinned: optionsIgnorePinned.checked,
       formatCustom: optionsFormatCustom.value,
-      filterTabs: optionsFilterTabs.checked
+      filterTabs: optionsFilterTabs.checked,
+      customHeader: optionsCustomHeader.value
     }
   })
 }

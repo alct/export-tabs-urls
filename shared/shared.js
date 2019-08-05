@@ -6,7 +6,8 @@ var defaultOptions = {
     ignoreNonHTTP: true,
     ignorePinned: false,
     formatCustom: '',
-    filterTabs: true
+    filterTabs: true,
+    customHeader: ''
   }
 }
 

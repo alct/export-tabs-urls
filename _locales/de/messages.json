@@ -41,6 +41,15 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filter Tabs"
     },
+    "optionsCustomTitle": {
+        "message": "Benutzerdefinierter Titel"
+    },
+    "optionsCustomTitlePlaceholder": {
+        "message": "keiner"
+    },
+    "optionsCustomTitleDescription": {
+        "message": "<p>Sie können hier einen benutzerdefinierten Titel eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num_tabs}</code>: Anzahl von Tabs</li><li><code>\\r\\n</code>: new line</li></ul><p>Beispiel: <code>From Export Tabs URLs (# links: {num_tabs})\\r\\n\\r\\n\\r\\n</code></p>"
+    },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"
     },

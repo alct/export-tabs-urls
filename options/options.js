@@ -1,4 +1,4 @@
-var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs
+var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs, optionsCustomTitle
 
 w.addEventListener('load', function () {
   optionsIgnoreNonHTTP = d.getElementById('options-ignore-non-http')
@@ -6,6 +6,7 @@ w.addEventListener('load', function () {
   optionsFormatCustom = d.getElementById('options-format-custom')
   optionsButtonResetFormat = d.getElementById('options-button-reset-format')
   optionsFilterTabs = d.getElementById('options-filter-tabs')
+  optionsCustomTitle = d.getElementById('options-custom-title')
 
   optionsIgnoreNonHTTP.addEventListener('change', function () {
     saveOptions()
@@ -30,6 +31,10 @@ w.addEventListener('load', function () {
     saveOptions()
   })
 
+  optionsCustomTitle.addEventListener('input', function () {
+    saveOptions()
+  })
+
   restoreOptions()
   localization()
 })
@@ -50,6 +55,7 @@ function restoreOptions () {
     optionsIgnorePinned.checked = items.options.ignorePinned
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
+    optionsCustomTitle.value = items.options.customTitle
 
     setOptionsButtonResetFormatVisibility()
   })
@@ -61,7 +67,8 @@ function saveOptions () {
       ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
       ignorePinned: optionsIgnorePinned.checked,
       formatCustom: optionsFormatCustom.value,
-      filterTabs: optionsFilterTabs.checked
+      filterTabs: optionsFilterTabs.checked,
+      customTitle: optionsCustomTitle.value
     }
   })
 }

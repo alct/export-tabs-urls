@@ -103,7 +103,7 @@ function updatePopup () {
         if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP) {
           actualNbTabs += 1
 
-          if (filterMatch(userInput, [ tabTitle, tabURL ]) || userInput === '') {
+          if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
             nbFilterMatch += 1
 
             if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')

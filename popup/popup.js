@@ -111,10 +111,13 @@ function updatePopup () {
         }
       }
 
-      popupTextarea.value = ""
+      popupTextarea.value = ''
 
       if (optionsCustomHeader) {
-        header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, actualNbTabs)
+        var nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs
+
+        header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, nbTabs)
+
         popupTextarea.value += header + '\r\n\r\n'
       }
 

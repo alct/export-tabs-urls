@@ -51,7 +51,7 @@
         "message": "keiner"
     },
     "optionsCustomHeaderDescription": {
-        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>\\r\\n</code>: neue Teile</li></ul><p>Beispiel: <code>From Export Tabs URLs (# links: {num-tabs})</code></p>"
+        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>From Export Tabs URLs (# links: {num-tabs})</code></p>"
     },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"

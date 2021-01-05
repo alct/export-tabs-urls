@@ -6,6 +6,7 @@ w.addEventListener('load', function () {
   optionsFormatCustom = d.getElementById('options-format-custom')
   optionsButtonResetFormat = d.getElementById('options-button-reset-format')
   optionsFilterTabs = d.getElementById('options-filter-tabs')
+  optionsNotifications = d.getElementById('options-notifications')
   optionsCustomHeader = d.getElementById('options-custom-header')
   optionsButtonResetHeader = d.getElementById('options-button-reset-header')
 
@@ -29,6 +30,10 @@ w.addEventListener('load', function () {
   })
 
   optionsFilterTabs.addEventListener('change', function () {
+    saveOptions()
+  })
+
+  optionsNotifications.addEventListener('change', function () {
     saveOptions()
   })
 
@@ -71,6 +76,7 @@ function restoreOptions () {
     optionsIgnorePinned.checked = items.options.ignorePinned
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
+    optionsNotifications.checked = items.options.enableNotifications
     optionsCustomHeader.value = items.options.customHeader
 
     setOptionsButtonResetFormatVisibility()
@@ -85,6 +91,7 @@ function saveOptions () {
       ignorePinned: optionsIgnorePinned.checked,
       formatCustom: optionsFormatCustom.value,
       filterTabs: optionsFilterTabs.checked,
+      notifications: optionsNotifications.checked,
       customHeader: optionsCustomHeader.value
     }
   })

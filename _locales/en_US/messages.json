@@ -44,6 +44,9 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filter tabs"
     },
+    "optionsNotifications": {
+        "message": "Enable Notifications"
+    },
     "optionsCustomHeader": {
         "message": "Custom header"
     },

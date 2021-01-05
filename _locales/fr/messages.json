@@ -44,6 +44,9 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filtrer les onglets"
     },
+    "optionsNotifications": {
+        "message": "Activer les notifications"
+    },
     "optionsCustomHeader": {
         "message": "Entête personnalisée"
     },

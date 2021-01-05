@@ -3,7 +3,8 @@ var
   popupButtonCopy, popupButtonExport,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader
+  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader,
+  optionsNotifications
 
 var defaultPopupStates = {
   'states': {
@@ -168,17 +169,21 @@ function copyToClipboard () {
 
   var message = d.execCommand('copy') ? 'copiedToClipboard' : 'notCopiedToClipboard'
 
-  browser.notifications.create('ExportTabsURLs', {
-    'type': 'basic',
-    'title': browser.i18n.getMessage('appName'),
-    'iconUrl': '../img/icon.svg',
-    'message': browser.i18n.getMessage(message)
-  })
+  if (optionsNotifications) {
+    browser.notifications.create('ExportTabsURLs', {
+        'type': 'basic',
+        'title': browser.i18n.getMessage('appName'),
+        'iconUrl': '../img/icon.svg',
+        'message': browser.i18n.getMessage(message)
+    })
+  }
 
   popupButtonCopy.classList.add('disabled')
 
   setTimeout(function () {
-    browser.notifications.clear('ExportTabsURLs')
+    if (optionsNotifications) {
+        browser.notifications.clear('ExportTabsURLs')
+    }
     popupButtonCopy.classList.remove('disabled')
   }, 3000)
 }
@@ -228,5 +233,6 @@ function getOptions () {
     optionsFormatCustom = items.options.formatCustom
     optionsFilterTabs = items.options.filterTabs
     optionsCustomHeader = items.options.customHeader
+    optionsNotifications = items.options.notifications
   })
 }

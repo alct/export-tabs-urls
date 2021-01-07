@@ -168,17 +168,9 @@ function copyToClipboard () {
 
   var message = d.execCommand('copy') ? 'copiedToClipboard' : 'notCopiedToClipboard'
 
-  browser.notifications.create('ExportTabsURLs', {
-    'type': 'basic',
-    'title': browser.i18n.getMessage('appName'),
-    'iconUrl': '../img/icon.svg',
-    'message': browser.i18n.getMessage(message)
-  })
-
   popupButtonCopy.classList.add('disabled')
 
   setTimeout(function () {
-    browser.notifications.clear('ExportTabsURLs')
     popupButtonCopy.classList.remove('disabled')
   }, 3000)
 }

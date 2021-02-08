@@ -36,6 +36,10 @@ w.addEventListener('load', function () {
 
   setLimitWindowVisibility()
 
+  popupCounter.addEventListener('click', function () {
+    openUrlsInTabs()
+  })
+
   popupFormat.addEventListener('change', function () {
     savePopupStates()
     updatePopup()
@@ -130,6 +134,16 @@ function updatePopup () {
       popupFilterTabs.focus()
     }
   )
+}
+
+function openUrlsInTabs() {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  let matches = popupTextarea.value.match(urlRegex);
+  matches.forEach(i => {
+    browser.tabs.create({
+      url: i
+    });
+  })
 }
 
 function filterMatch (needle, haystack) {

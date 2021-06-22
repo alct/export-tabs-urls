@@ -2,6 +2,7 @@ var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButto
 
 w.addEventListener('load', function () {
   optionsIgnoreNonHTTP = d.getElementById('options-ignore-non-http')
+  optionsTrackContainer = d.getElementById('options-track-container')
   optionsIgnorePinned = d.getElementById('options-ignore-pinned')
   optionsFormatCustom = d.getElementById('options-format-custom')
   optionsButtonResetFormat = d.getElementById('options-button-reset-format')
@@ -10,6 +11,10 @@ w.addEventListener('load', function () {
   optionsButtonResetHeader = d.getElementById('options-button-reset-header')
 
   optionsIgnoreNonHTTP.addEventListener('change', function () {
+    saveOptions()
+  })
+
+  optionsTrackContainer.addEventListener('change', function () {
     saveOptions()
   })
 
@@ -68,6 +73,7 @@ function restoreOptions () {
 
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP
+    optionsTrackContainer.checked = items.options.trackContainer
     optionsIgnorePinned.checked = items.options.ignorePinned
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
@@ -82,6 +88,7 @@ function saveOptions () {
   browser.storage.local.set({
     'options': {
       ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
+      trackContainer: optionsTrackContainer.checked,
       ignorePinned: optionsIgnorePinned.checked,
       formatCustom: optionsFormatCustom.value,
       filterTabs: optionsFilterTabs.checked,

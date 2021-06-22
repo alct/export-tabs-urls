@@ -3,6 +3,7 @@ var w = window
 
 var defaultOptions = {
   'options': {
+    trackContainer: false,
     ignoreNonHTTP: true,
     ignorePinned: false,
     formatCustom: '',

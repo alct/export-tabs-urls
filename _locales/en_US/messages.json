@@ -29,6 +29,12 @@
     "optionsIgnoreNonHTTPDescription": {
         "message": "<p>This option prevent Export Tabs URLs from listing tabs whose URL scheme is different from <code>http://</code> or <code>https://</code>.</p>"
     },
+    "optionsTrackContainer": {
+        "message": "Track container and report as prefix to URL"
+    },
+    "optionsTrackContainerDescription": {
+        "message": "<p>This option prefix container specific info to URL. Extension <code>https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/</code> can then open the link in its container.</p>"
+    },
     "optionsIgnorePinned": {
         "message": "Ignore pinned tabs"
     },

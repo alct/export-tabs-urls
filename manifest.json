@@ -29,6 +29,8 @@
         "browser_style": true
     },
     "permissions": [
+        "cookies",
+        "contextualIdentities",
         "clipboardWrite",
         "notifications",
         "storage",

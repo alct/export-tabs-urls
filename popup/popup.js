@@ -3,7 +3,7 @@ var
   popupButtonCopy, popupButtonExport,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-  optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader
+optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader, optionsTrackContainer
 
 var defaultPopupStates = {
   'states': {
@@ -68,68 +68,71 @@ w.addEventListener('load', function () {
   localization()
 })
 
-function updatePopup () {
-  browser.tabs.query(
-    {},
-    function (tabs) {
-      var list = ''
-      var header = ''
-      var format = '{url}\r\n'
-      var actualNbTabs = 0
-      var totalNbTabs = tabs.length
-      var nbFilterMatch = 0
-      var userInput = popupFilterTabs.value
+async function updatePopup () {
+  var containers =  await browser.contextualIdentities.query({});
+  var tabs = await browser.tabs.query({});
+  var list = ''
+  var header = ''
+  var format = '{url}\r\n'
+  var actualNbTabs = 0
+  var totalNbTabs = tabs.length
+  var nbFilterMatch = 0
+  var userInput = popupFilterTabs.value
 
-      if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
+  if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
 
-      if (optionsFormatCustom) {
-        popupLabelFormatTitles.classList.add('hidden')
-        popupLabelFormatCustom.classList.remove('hidden')
+  if (optionsFormatCustom) {
+    popupLabelFormatTitles.classList.add('hidden')
+    popupLabelFormatCustom.classList.remove('hidden')
 
-        if (popupFormat.checked) format = optionsFormatCustom.replace(/\\n/g, '\n').replace(/\\r/g, '\r')
+    if (popupFormat.checked) format = optionsFormatCustom.replace(/\\n/g, '\n').replace(/\\r/g, '\r')
+  }
+
+  if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
+
+  for (var i = 0; i < totalNbTabs; i++) {
+    var prefix = ""
+    if (optionsTrackContainer) {
+      var container = containers.find((container) => container.cookieStoreId == tabs[i].cookieStoreId)
+      if (container !== undefined) {
+        prefix = "ext+container:name=" + container.name + "&url="
+      }}
+    var tabWindowId = tabs[i].windowId
+    var tabPinned = tabs[i].pinned
+    var tabURL = prefix + tabs[i].url
+    var tabTitle = tabs[i].title
+
+    if (optionsIgnorePinned && tabPinned) continue
+    if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
+
+    if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP || (optionsTrackContainer && tabURL.startsWith('ext'))) {
+      actualNbTabs += 1
+
+      if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
+        nbFilterMatch += 1
+
+        if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+        list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId)
       }
-
-      if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
-
-      for (var i = 0; i < totalNbTabs; i++) {
-        var tabWindowId = tabs[i].windowId
-        var tabPinned = tabs[i].pinned
-        var tabURL = tabs[i].url
-        var tabTitle = tabs[i].title
-
-        if (optionsIgnorePinned && tabPinned) continue
-        if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
-
-        if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP) {
-          actualNbTabs += 1
-
-          if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
-            nbFilterMatch += 1
-
-            if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-
-            list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId)
-          }
-        }
-      }
-
-      popupTextarea.value = ''
-
-      if (optionsCustomHeader) {
-        var nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs
-
-        header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, nbTabs)
-
-        popupTextarea.value += header + '\r\n\r\n'
-      }
-
-      popupTextarea.value += list
-      popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
-
-      setSeparatorStyle()
-      popupFilterTabs.focus()
     }
-  )
+  }
+
+  popupTextarea.value = ''
+
+  if (optionsCustomHeader) {
+    var nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs
+
+    header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, nbTabs)
+
+    popupTextarea.value += header + '\r\n\r\n'
+  }
+
+  popupTextarea.value += list
+  popupCounter.textContent = (userInput !== '') ? nbFilterMatch + ' / ' + actualNbTabs : actualNbTabs
+
+  setSeparatorStyle()
+  popupFilterTabs.focus()
 }
 
 function filterMatch (needle, haystack) {
@@ -224,6 +227,7 @@ function getOptions () {
 
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP
+    optionsTrackContainer = items.options.trackContainer
     optionsIgnorePinned = items.options.ignorePinned
     optionsFormatCustom = items.options.formatCustom
     optionsFilterTabs = items.options.filterTabs

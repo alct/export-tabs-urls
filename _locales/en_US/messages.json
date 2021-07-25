@@ -21,7 +21,7 @@
         "message": "Reset"
     },
     "optionsFormatCustomDescription": {
-        "message": "<p>You can define a custom format instead of the default \"Include titles\" one.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>[{title}]({url})\\r\\n</code></p>"
+        "message": "<p>You can define a custom format instead of the default \"Include titles\" one.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{title}</code>: title of a tab</li><li><code>{url}</code>: URL of a tab</li><li><code>{window-id}</code>: ID of the window containing a tab</li><li><code>\\r\\n</code>: new line</li><li><code>{container-name}</code>: container name, empty string if no container.</li><li><code>{container-title}</code>: container name in format, 'container-name: ', empty string if no container.</li><<li><code>{container-url}</code>: container name in open-url-in-container format, empty string if no container.</li></ul><p>Example: <code>[{title}]({url})\\r\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
         "message": "Ignore non-HTTP(S) URLs"
@@ -34,6 +34,15 @@
     },
     "optionsTrackContainerDescription": {
         "message": "<p>This option prefix container specific info to URL. Extension <code>https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/</code> can then open the link in its container.</p>"
+    },
+    "optionsContainerBlacklist": {
+        "message": "Container blacklist"
+    },
+    "optionsContainerBlacklistPlaceholder": {
+        "message": "tmp.*"
+    },
+    "optionsContainerBlacklistDescription": {
+        "message": "<p>You may define a container blacklist here.</p><p>Syntax: <code>'regex1, regex2'</code></p>"
     },
     "optionsIgnorePinned": {
         "message": "Ignore pinned tabs"

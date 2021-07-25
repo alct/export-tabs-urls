@@ -1,8 +1,10 @@
-var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs, optionsCustomHeader, optionsButtonResetHeader
+var optionsFormatCustom, optionsIgnoreNonHTTP, optionsTrackContainer, optionsContainerBlacklist, optionsButtonResetContainerBlacklist, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs, optionsCustomHeader, optionsButtonResetHeader
 
 w.addEventListener('load', function () {
   optionsIgnoreNonHTTP = d.getElementById('options-ignore-non-http')
   optionsTrackContainer = d.getElementById('options-track-container')
+  optionsContainerBlacklist = d.getElementById('options-container-blacklist')
+  optionsButtonResetContainerBlacklist = d.getElementById('options-button-reset-container-blacklist')
   optionsIgnorePinned = d.getElementById('options-ignore-pinned')
   optionsFormatCustom = d.getElementById('options-format-custom')
   optionsButtonResetFormat = d.getElementById('options-button-reset-format')
@@ -16,6 +18,17 @@ w.addEventListener('load', function () {
 
   optionsTrackContainer.addEventListener('change', function () {
     saveOptions()
+  })
+
+  optionsContainerBlacklist.addEventListener('input', function () {
+    saveOptions()
+    setOptionsButtonResetContainerBlacklistVisibility()
+  })
+
+  optionsButtonResetContainerBlacklist.addEventListener('click', function () {
+    optionsContainerBlacklist.value = ''
+    saveOptions()
+    setOptionsButtonResetContainerBlacklistVisibility()
   })
 
   optionsIgnorePinned.addEventListener('change', function () {
@@ -52,6 +65,14 @@ w.addEventListener('load', function () {
   localization()
 })
 
+function setOptionsButtonResetContainerBlacklistVisibility () {
+  if (optionsContainerBlacklist.value !== '') {
+    optionsContainerBlacklist.classList.remove('hidden')
+  } else {
+    optionsContainerBlacklist.classList.add('hidden')
+  }
+}
+
 function setOptionsButtonResetFormatVisibility () {
   if (optionsFormatCustom.value !== '') {
     optionsButtonResetFormat.classList.remove('hidden')
@@ -74,11 +95,13 @@ function restoreOptions () {
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP
     optionsTrackContainer.checked = items.options.trackContainer
+    optionsContainerBlacklist.value = items.options.containerBlacklist
     optionsIgnorePinned.checked = items.options.ignorePinned
     optionsFormatCustom.value = items.options.formatCustom
     optionsFilterTabs.checked = items.options.filterTabs
     optionsCustomHeader.value = items.options.customHeader
 
+    setOptionsButtonResetContainerBlacklistVisibility()
     setOptionsButtonResetFormatVisibility()
     setOptionsButtonResetHeaderVisibility()
   })
@@ -89,6 +112,7 @@ function saveOptions () {
     'options': {
       ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
       trackContainer: optionsTrackContainer.checked,
+      containerBlacklist: optionsContainerBlacklist.value,
       ignorePinned: optionsIgnorePinned.checked,
       formatCustom: optionsFormatCustom.value,
       filterTabs: optionsFilterTabs.checked,

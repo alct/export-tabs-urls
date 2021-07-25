@@ -3,7 +3,7 @@ var
   popupButtonCopy, popupButtonExport,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
   currentWindowId, os,
-optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader, optionsTrackContainer
+optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader, optionsTrackContainer, optionsContainerBlacklist
 
 var defaultPopupStates = {
   'states': {
@@ -91,15 +91,21 @@ async function updatePopup () {
   if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
 
   for (var i = 0; i < totalNbTabs; i++) {
-    var prefix = ""
+    var containerPrefix = "";
+    var containerName = "";
+    var containerTitle = "";
     if (optionsTrackContainer) {
       var container = containers.find((container) => container.cookieStoreId == tabs[i].cookieStoreId)
-      if (container !== undefined) {
-        prefix = "ext+container:name=" + container.name + "&url="
+      var containerBlacklist = JSON.parse("[" + optionsContainerBlacklist + "]")
+      var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
+      if (container !== undefined && ! blacklistMatch) {
+        containerPrefix = "ext+container:name=" + container.name + "&url="
+        containerName = container.name
+        containerTitle = container.name + ": "
       }}
     var tabWindowId = tabs[i].windowId
     var tabPinned = tabs[i].pinned
-    var tabURL = prefix + tabs[i].url
+    var tabURL = tabs[i].url
     var tabTitle = tabs[i].title
 
     if (optionsIgnorePinned && tabPinned) continue
@@ -113,7 +119,7 @@ async function updatePopup () {
 
         if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-        list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId)
+        list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId).replace(/{container-name}/g, containerName).replace(/{container-url}/g, containerPrefix).replace(/{container-title}/g, containerTitle);
       }
     }
   }
@@ -228,6 +234,7 @@ function getOptions () {
   gettingItem.then(function (items) {
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP
     optionsTrackContainer = items.options.trackContainer
+    optionsContainerBlacklist = items.options.containerBlacklist
     optionsIgnorePinned = items.options.ignorePinned
     optionsFormatCustom = items.options.formatCustom
     optionsFilterTabs = items.options.filterTabs

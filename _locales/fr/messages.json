@@ -20,6 +20,9 @@
     "optionsButtonResetHeader": {
         "message": "Réinitialiser"
     },
+    "optionsButtonResetContainerBlacklist": {
+        "message": "Reset"
+    },
     "optionsFormatCustomDescription": {
         "message": "<p>Vous pouvez défénir un format personnalisé à la place de celui par défaut \"Inclure les titres\".</p><p>Vous pouvez utiliser n'impore quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{title}</code>: titre d'un onglet</li><li><code>{url}</code>: URL d'un onglet</li><li><code>{window-id}</code>: ID de la fenêtre contenant un onglet</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>[{title}]({url})\\r\\n</code></p>"
     },
@@ -34,6 +37,15 @@
     },
     "optionsTrackContainerDescription": {
         "message": "<p>This option prefix container specific info to URL. Extension <code>https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/</code> can then open the link in its container.</p>"
+    },
+    "optionsContainerBlacklist": {
+        "message": "Container blacklist"
+    },
+    "optionsContainerBlacklistPlaceholder": {
+        "message": "\"tmp.*\""
+    },
+    "optionsContainerBlacklistDescription": {
+        "message": "<p>You may define regex strings to treat matching container names as if they didn't exist here.</p><p>Syntax: <code>\"regex1\", \"regex2\"</code></p>"
     },
     "optionsIgnorePinned": {
         "message": "Ignorer les onglets épinglés"

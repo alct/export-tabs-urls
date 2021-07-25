@@ -67,9 +67,9 @@ w.addEventListener('load', function () {
 
 function setOptionsButtonResetContainerBlacklistVisibility () {
   if (optionsContainerBlacklist.value !== '') {
-    optionsContainerBlacklist.classList.remove('hidden')
+    optionsButtonResetContainerBlacklist.classList.remove('hidden')
   } else {
-    optionsContainerBlacklist.classList.add('hidden')
+    optionsButtonResetContainerBlacklist.classList.add('hidden')
   }
 }
 

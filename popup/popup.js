@@ -1,8 +1,8 @@
 var
-  popupButtonSettings, popupCounter, popupTextarea, popupTextareaContainer, popupFilterTabs, popupFilterTabsContainer,
-  popupButtonCopy, popupButtonExport,
-  popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
-  currentWindowId, os,
+popupButtonSettings, popupCounter, popupTextarea, popupTextareaContainer, popupFilterTabs, popupFilterTabsContainer,
+popupButtonCopy, popupButtonExport,
+popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
+currentWindowId, os,
 optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader, optionsTrackContainer, optionsContainerBlacklist
 
 var defaultPopupStates = {
@@ -78,6 +78,10 @@ async function updatePopup () {
   var totalNbTabs = tabs.length
   var nbFilterMatch = 0
   var userInput = popupFilterTabs.value
+  var jsonStr = "[" + optionsContainerBlacklist + "]"
+  var containerBlacklist = JSON.parse(jsonStr)
+  containerBlacklist = containerBlacklist.filter(function(item) { return item !== ""})
+  console.log(containerBlacklist)
 
   if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
 
@@ -96,13 +100,14 @@ async function updatePopup () {
     var containerTitle = "";
     if (optionsTrackContainer) {
       var container = containers.find((container) => container.cookieStoreId == tabs[i].cookieStoreId)
-      var containerBlacklist = JSON.parse("[" + optionsContainerBlacklist + "]")
-      var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
-      if (container !== undefined && ! blacklistMatch) {
-        containerPrefix = "ext+container:name=" + container.name + "&url="
-        containerName = container.name
-        containerTitle = container.name + ": "
-      }}
+      if (container !== undefined) {
+        var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
+        if(!blacklistMatch){
+          containerPrefix = "ext+container:name=" + container.name + "&url="
+          containerName = container.name
+          containerTitle = container.name + ": "
+        }}}
+
     var tabWindowId = tabs[i].windowId
     var tabPinned = tabs[i].pinned
     var tabURL = tabs[i].url

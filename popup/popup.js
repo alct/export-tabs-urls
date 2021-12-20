@@ -1,14 +1,15 @@
 var
   popupButtonSettings, popupCounter, popupTextarea, popupTextareaContainer, popupFilterTabs, popupFilterTabsContainer,
   popupButtonCopy, popupButtonExport,
-  popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow,
+  popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow, popupExportHTMLNetscapeFormat,
   currentWindowId, os,
   optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader
 
 var defaultPopupStates = {
   'states': {
     format: false,
-    popupLimitWindow: false
+    popupLimitWindow: false,
+    popupExportHTMLNetscapeFormat: false
   }
 }
 
@@ -30,6 +31,7 @@ w.addEventListener('load', function () {
   popupLabelFormatTitles = d.getElementsByClassName('popup-label-format-titles')[0]
   popupLabelFormatCustom = d.getElementsByClassName('popup-label-format-custom')[0]
   popupLimitWindow = d.getElementById('popup-limit-window')
+  popupExportHTMLNetscapeFormat = d.getElementById('popup-export-html-netscape-format')
   popupButtonCopy = d.getElementsByClassName('popup-button-copy')[0]
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
   popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
@@ -46,6 +48,11 @@ w.addEventListener('load', function () {
   })
 
   popupLimitWindow.addEventListener('change', function () {
+    savePopupStates()
+    updatePopup()
+  })
+
+  popupExportHTMLNetscapeFormat.addEventListener('change', function () {
     savePopupStates()
     updatePopup()
   })
@@ -104,8 +111,6 @@ function updatePopup () {
           actualNbTabs += 1
 
           if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
-            nbFilterMatch += 1
-
             if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
             list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId)
@@ -183,20 +188,97 @@ function copyToClipboard () {
   }, 3000)
 }
 
+function indent(num) {
+  var result = ''
+  for (var i = 0; i < num; i++) {
+    result += ' '
+  }
+  return result;
+}
+
+function downloadHTML() {
+  browser.tabs.query(
+    {},
+    function (tabs) {
+      var file = '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n'
+        + indent(4) + '<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n'
+        + indent(4) + '<TITLE>Export tabs URLs</TITLE>\n'
+        + indent(4) + '<H1>Export tabs URLs</H1>\n'
+        + indent(4) + '<DL><p>\n'
+      var header = ''
+      var actualNbTabs = 0
+      var totalNbTabs = tabs.length
+      var nbFilterMatch = 0
+      var userInput = popupFilterTabs.value
+      var idt = 6
+
+      if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
+
+      if (optionsCustomHeader) {
+        var nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs
+        header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, nbTabs)
+        file += (indent(6) + '<DT><H3>' + header + '</H3>\n')
+        file += (indent(6) + '<DL><p>\n')
+        idt = 8
+      }
+
+      for (var i = 0; i < totalNbTabs; i++) {
+        var tabWindowId = tabs[i].windowId
+        var tabPinned = tabs[i].pinned
+        var tabURL = tabs[i].url
+        var tabTitle = tabs[i].title
+
+        if (optionsIgnorePinned && tabPinned) continue
+        if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
+
+        if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP) {
+          actualNbTabs += 1
+
+          if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
+            file += (indent(idt) + '<DT><A HREF="' + tabURL + '">' + tabTitle + '</A>\n')
+          }
+        }
+      }
+
+      if (optionsCustomHeader) {
+        file += (indent(6) + '</DL><p>\n')
+      }
+
+      file += (indent(4) + '</DL><p>')
+
+      var downloadElement = d.createElement('a')
+      downloadElement.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(file)
+      if (optionsCustomHeader) {
+        downloadElement.download = header + '_ExportTabsURLs.html'
+      } else {
+        downloadElement.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.html'
+      }
+      downloadElement.style.display = 'none'
+      d.body.appendChild(downloadElement)
+      downloadElement.click()
+      d.body.removeChild(downloadElement)
+    }
+  )
+}
+
 function download () {
   var list = popupTextarea.value
 
   // fix inconsistent behaviour on Windows, see https://github.com/alct/export-tabs-urls/issues/2
   if (os === 'win') list = list.replace(/\r?\n/g, '\r\n')
 
-  var element = d.createElement('a')
-  element.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(list)
-  element.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.txt'
-  element.style.display = 'none'
+  if (popupExportHTMLNetscapeFormat.checked) {
+    downloadHTML()
+  } else {
+    var element = d.createElement('a')
+    element.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(list)
+    element.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.txt'
+    element.style.display = 'none'
 
-  d.body.appendChild(element)
-  element.click()
-  d.body.removeChild(element)
+    d.body.appendChild(element)
+    element.click()
+    d.body.removeChild(element)
+  }
 }
 
 function restorePopupStates () {
@@ -205,6 +287,7 @@ function restorePopupStates () {
   gettingItem.then(function (items) {
     popupLimitWindow.checked = items.states.popupLimitWindow
     popupFormat.checked = items.states.format
+    popupExportHTMLNetscapeFormat.checked = items.states.popupExportHTMLNetscapeFormat
 
     updatePopup()
   })
@@ -214,7 +297,8 @@ function savePopupStates () {
   browser.storage.local.set({
     'states': {
       format: popupFormat.checked,
-      popupLimitWindow: popupLimitWindow.checked
+      popupLimitWindow: popupLimitWindow.checked,
+      popupExportHTMLNetscapeFormat: popupExportHTMLNetscapeFormat.checked
     }
   })
 }

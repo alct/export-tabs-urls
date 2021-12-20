@@ -65,6 +65,9 @@
     "popupLimitWindow": {
         "message": "Limiter à la fenêtre actuelle"
     },
+    "popupExportHTMLNetscapeFormat": {
+        "message": "Exporter HTML au format Netscape"
+    },
     "popupLabelFormatTitles": {
         "message": "Inclure les titres"
     },

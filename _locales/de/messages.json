@@ -62,6 +62,9 @@
     "popupLimitWindow": {
         "message": "Auf das aktuelle Fenster begrenzen"
     },
+    "popupExportHTMLNetescapeFormat": {
+        "message": "HTML im Netscape-Format exportieren"
+    },
     "popupLabelFormatCustom": {
         "message": "Benutzerdefiniertes Format"
     },

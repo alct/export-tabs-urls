@@ -133,14 +133,10 @@ header h1 {
 
 .options {
     display: flex;
+    flex-direction: column;
 }
 .options p {
     margin: 0;
-}
-.options p:nth-child(2) {
-    flex: 2 1 auto;
-    margin-left: 1.5rem;
-    text-align: right;
 }
 
 footer {

@@ -51,8 +51,8 @@ header h1 {
     z-index: 300;
 }
 .popup-settings::before {
-	height: 100px;
-	width: 100px;
+    height: 100px;
+    width: 100px;
     background: #fff;
     box-shadow: 0px -9px 4px -8px rgba(0,0,0,0.31);
     content: ' ';
@@ -137,6 +137,10 @@ header h1 {
 }
 .options p {
     margin: 0;
+}
+
+.options .file-name-wrapper label {
+    margin: 0 4px;
 }
 
 footer {

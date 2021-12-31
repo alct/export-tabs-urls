@@ -1,6 +1,6 @@
 var
   popupButtonSettings, popupCounter, popupTextarea, popupTextareaContainer, popupFilterTabs, popupFilterTabsContainer,
-  popupButtonCopy, popupButtonExport,
+  popupButtonCopy, popupButtonExport, popupCustomFileName,
   popupFormat, popupLabelFormatTitles, popupLabelFormatCustom, popupLimitWindow, popupExportHTMLNetscapeFormat,
   currentWindowId, os,
   optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTabs, optionsCustomHeader
@@ -32,6 +32,7 @@ w.addEventListener('load', function () {
   popupLabelFormatCustom = d.getElementsByClassName('popup-label-format-custom')[0]
   popupLimitWindow = d.getElementById('popup-limit-window')
   popupExportHTMLNetscapeFormat = d.getElementById('popup-export-html-netscape-format')
+  popupCustomFileName = d.getElementById('popup-custom-file-name')
   popupButtonCopy = d.getElementsByClassName('popup-button-copy')[0]
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
   popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
@@ -188,6 +189,16 @@ function copyToClipboard () {
   }, 3000)
 }
 
+function generateFileName() {
+  if (popupCustomFileName.value) {
+    return popupCustomFileName.value;
+  }
+  if (optionsCustomHeader) {
+    return header + '_ExportTabsURLs';
+  }
+  return moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs';
+}
+
 function indent(num) {
   var result = ''
   for (var i = 0; i < num; i++) {
@@ -248,11 +259,7 @@ function downloadHTML() {
 
       var downloadElement = d.createElement('a')
       downloadElement.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(file)
-      if (optionsCustomHeader) {
-        downloadElement.download = header + '_ExportTabsURLs.html'
-      } else {
-        downloadElement.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.html'
-      }
+      downloadElement.download = generateFileName() + '.html'
       downloadElement.style.display = 'none'
       d.body.appendChild(downloadElement)
       downloadElement.click()
@@ -272,7 +279,7 @@ function download () {
   } else {
     var element = d.createElement('a')
     element.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(list)
-    element.download = moment().format('YYYYMMDDTHHmmssZZ') + '_ExportTabsURLs.txt'
+    element.download = generateFileName() + '.txt'
     element.style.display = 'none'
 
     d.body.appendChild(element)

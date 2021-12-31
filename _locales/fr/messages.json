@@ -71,6 +71,9 @@
     "popupLabelFormatTitles": {
         "message": "Inclure les titres"
     },
+    "popupCustomFileName": {
+        "message": "Nom de fichier "
+    },
     "copiedToClipboard": {
         "message": "La liste a été copiée dans le presse-papier avec succès."
     },

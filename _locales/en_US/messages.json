@@ -71,6 +71,9 @@
     "popupLabelFormatTitles": {
         "message": "Include titles"
     },
+    "popupCustomFileName": {
+        "message": "File name"
+    },
     "copiedToClipboard": {
         "message": "The list has successfully been copied to your clipboard."
     },

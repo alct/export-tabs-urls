@@ -71,6 +71,9 @@
     "popupLabelFormatTitles": {
         "message": "Titel einschließen"
     },
+    "popupCustomFileName": {
+        "message": "Dateinamen"
+    },
     "copiedToClipboard": {
         "message": "Die Liste wurde erfolgreich in die Zwischenablagekopiert."
     },

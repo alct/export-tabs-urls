@@ -62,11 +62,17 @@
     "popupLimitWindow": {
         "message": "Auf das aktuelle Fenster begrenzen"
     },
+    "popupExportHTMLNetescapeFormat": {
+        "message": "HTML im Netscape-Format exportieren"
+    },
     "popupLabelFormatCustom": {
         "message": "Benutzerdefiniertes Format"
     },
     "popupLabelFormatTitles": {
         "message": "Titel einschließen"
+    },
+    "popupCustomFileName": {
+        "message": "Dateinamen"
     },
     "copiedToClipboard": {
         "message": "Die Liste wurde erfolgreich in die Zwischenablagekopiert."

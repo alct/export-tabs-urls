@@ -62,11 +62,17 @@
     "popupLimitWindow": {
         "message": "Limit to current window"
     },
+    "popupExportHTMLNetscapeFormat": {
+        "message": "Export HTML with Netscape format"
+    },
     "popupLabelFormatCustom": {
         "message": "Custom format"
     },
     "popupLabelFormatTitles": {
         "message": "Include titles"
+    },
+    "popupCustomFileName": {
+        "message": "File name"
     },
     "copiedToClipboard": {
         "message": "The list has successfully been copied to your clipboard."

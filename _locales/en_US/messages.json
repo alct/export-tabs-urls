@@ -65,6 +65,9 @@
     "popupLabelFormatCustom": {
         "message": "Custom format"
     },
+    "popupLabelExcludeHidden":{
+        "message": "Exclude hidden tabs"
+    },
     "popupLabelFormatTitles": {
         "message": "Include titles"
     },

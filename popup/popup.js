@@ -8,6 +8,7 @@ var
 var defaultPopupStates = {
   'states': {
     format: false,
+    excludehiddentabs: false,
     popupLimitWindow: false
   }
 }
@@ -27,6 +28,7 @@ w.addEventListener('load', function () {
   popupTextarea = d.getElementsByClassName('popup-textarea')[0]
   popupTextareaContainer = d.getElementsByClassName('popup-textarea-container')[0]
   popupFormat = d.getElementById('popup-format')
+  popupExcludeHiddenTabs = d.getElementById('popup-exclude-hidden-tabs')
   popupLabelFormatTitles = d.getElementsByClassName('popup-label-format-titles')[0]
   popupLabelFormatCustom = d.getElementsByClassName('popup-label-format-custom')[0]
   popupLimitWindow = d.getElementById('popup-limit-window')
@@ -37,6 +39,11 @@ w.addEventListener('load', function () {
   setLimitWindowVisibility()
 
   popupFormat.addEventListener('change', function () {
+    savePopupStates()
+    updatePopup()
+  })
+
+  popupExcludeHiddenTabs.addEventListener('change', function () {
     savePopupStates()
     updatePopup()
   })
@@ -96,6 +103,9 @@ function updatePopup () {
         var tabPinned = tabs[i].pinned
         var tabURL = tabs[i].url
         var tabTitle = tabs[i].title
+        var tabHidden = tabs[i].hidden
+
+        if (popupExcludeHiddenTabs.checked && tabHidden==true) continue;
 
         if (optionsIgnorePinned && tabPinned) continue
         if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
@@ -205,6 +215,7 @@ function restorePopupStates () {
   gettingItem.then(function (items) {
     popupLimitWindow.checked = items.states.popupLimitWindow
     popupFormat.checked = items.states.format
+    popupExcludeHiddenTabs.checked = items.states.excludehiddentabs
 
     updatePopup()
   })
@@ -214,6 +225,7 @@ function savePopupStates () {
   browser.storage.local.set({
     'states': {
       format: popupFormat.checked,
+      excludehiddentabs: popupExcludeHiddenTabs.checked,
       popupLimitWindow: popupLimitWindow.checked
     }
   })

@@ -23,3 +23,53 @@ label {
 .hidden {
     display: none;
 }
+
+/* Android-specific styles */
+.android-device {
+  font-size: 16px; /* Larger base font size for better readability */
+}
+
+.android-device input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 8px;
+}
+
+.android-device input[type="text"],
+.android-device textarea {
+  font-size: 16px;
+  padding: 8px;
+}
+
+.android-device button {
+  min-height: 44px; /* Minimum touch target size */
+  padding: 12px 16px;
+  margin: 8px 0;
+}
+
+/* Increase spacing for touch targets */
+.android-device .popup-textarea-container {
+  margin: 16px 0;
+}
+
+.android-device .options p {
+  margin: 16px 0;
+}
+
+/* Adjust popup size for Android */
+.android-device.popup-page {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* Make buttons more touch-friendly */
+.android-device .popup-button-settings,
+.android-device .popup-button-copy,
+.android-device .popup-button-export {
+  min-width: 44px;
+  min-height: 44px;
+  margin: 8px;
+}

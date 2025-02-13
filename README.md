@@ -13,11 +13,14 @@ I recommend the following custom format for firefox container.
 
 Consider this add-on done (except for bugfixes). I may or may not add new features depending on the fun (or lack of it).
 
-# Features
+## Features
+### New features
+- **Android support**: works on firefox android as well as on desktop.
+- **Track containers**: optionally, prepend information about the container of every tab in [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/) extension format
+- **Blacklist**: optionally, blacklist certain containers from being displayed.
+- **Windows**: display tabs with newlines between tabs from subsequent windows for visual segementaton of windows. 
 
-- **Track containers** _(what this extension provides over the orignal)_: optionally, prepend information about the container of every tab in [Open external links in a container](https://addons.mozilla.org/en-US/firefox/addon/open-url-in-container/) extension format
-- **Blacklist** _(what this extension provides over the orignal)_: optionally, blacklist certain containers from being displayed.
-- **Windows** _(what this extension provides over the orignal)_: display tabs with newlines between tabs from subsequent windows for visual segementaton of windows. 
+### Regular features
 - **Include titles** : ETU provides a default format which displays titles along tabs URLs ;
 - **Custom format** : optionally, custom patterns can be defined instead of the default "include titles" one (e.g. markdown) ;
 - **Filter tabs** : ETU provides a RegExp-enabled tabs filter ;

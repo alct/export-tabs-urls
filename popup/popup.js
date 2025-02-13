@@ -14,10 +14,17 @@ var defaultPopupStates = {
 
 browser.runtime.getPlatformInfo(function (info) {
   os = info.os
-})
-
-browser.windows.getLastFocused(function (currentWindow) {
-  currentWindowId = currentWindow.id
+  if (os === 'android') {
+    // Hide window-related UI elements on Android
+    if (popupLimitWindow) {
+      popupLimitWindow.closest('p').classList.add('hidden');
+    }
+  } else {
+    // Only get window info on non-Android platforms
+    browser.windows.getLastFocused(function (currentWindow) {
+      currentWindowId = currentWindow.id
+    })
+  }
 })
 
 w.addEventListener('load', function () {
@@ -34,7 +41,11 @@ w.addEventListener('load', function () {
   popupButtonExport = d.getElementsByClassName('popup-button-export')[0]
   popupButtonSettings = d.getElementsByClassName('popup-button-settings')[0]
 
-  setLimitWindowVisibility()
+  // Add popup-page class for Android-specific styling
+  d.body.classList.add('popup-page');
+  
+  // Check platform and setup Android UI if needed
+  checkPlatform();
 
   popupFormat.addEventListener('change', function () {
     savePopupStates()
@@ -42,7 +53,16 @@ w.addEventListener('load', function () {
   })
 
   popupButtonSettings.addEventListener('click', function () {
-    browser.runtime.openOptionsPage()
+    if (os === 'android') {
+      // On Android, open options page directly
+      browser.tabs.create({
+        url: browser.runtime.getURL("options/options.html")
+      });
+      window.close(); // Close the popup
+    } else {
+      // On desktop, use the standard method
+      browser.runtime.openOptionsPage();
+    }
   })
 
   popupLimitWindow.addEventListener('change', function () {
@@ -70,7 +90,6 @@ w.addEventListener('load', function () {
 
 async function updatePopup () {
   var containers = await browser.contextualIdentities.query({});
-  var windows = await browser.windows.getAll();
   var list = ''
   var header = ''
   var format = '{url}\r\n'
@@ -80,7 +99,6 @@ async function updatePopup () {
   var jsonStr = "[" + optionsContainerBlacklist + "]"
   var containerBlacklist = JSON.parse(jsonStr)
   containerBlacklist = containerBlacklist.filter(function(item) { return item !== ""})
-  console.log(containerBlacklist)
 
   if (popupFormat.checked) format = '{title}\r\n{url}\r\n\r\n'
 
@@ -93,52 +111,27 @@ async function updatePopup () {
 
   if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
 
-  for (var window of windows) {
-    if (popupLimitWindow.checked && window.id !== currentWindowId) continue
-    var tabs = await browser.tabs.query({ windowId: window.id });
-    for (var tab of tabs) {
-      var containerPrefix = "";
-      var containerName = "";
-      var containerTitle = "";
-      if (optionsTrackContainer) {
-        var container = containers.find((container) => container.cookieStoreId == tab.cookieStoreId)
-        if (container !== undefined) {
-          var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
-          if(!blacklistMatch){
-            containerPrefix = "ext+container:name=" + container.name + "&url="
-            containerName = container.name
-            containerTitle = container.name + ": "
-          }}}
-
-      var tabWindowId = tab.windowId
-      var tabPinned = tab.pinned
-      var tabURL = tab.url
-      var tabTitle = tab.title
-
-      if (optionsIgnorePinned && tabPinned) continue
-
-      if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP || (optionsTrackContainer && tabURL.startsWith('ext'))) {
-        actualNbTabs += 1
-
-        if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
-          nbFilterMatch += 1
-
-          if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-
-          list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId).replace(/{container-name}/g, containerName).replace(/{container-url}/g, containerPrefix).replace(/{container-title}/g, containerTitle);
-        }
-      }
+  // Different tab querying logic for Android vs desktop
+  let tabs;
+  if (os === 'android') {
+    // On Android, just get all tabs since there's no window concept
+    tabs = await browser.tabs.query({});
+    list = processTabList(tabs, containers, containerBlacklist, format, userInput);
+  } else {
+    // On desktop, handle windows
+    const windows = await browser.windows.getAll();
+    for (var window of windows) {
+      if (popupLimitWindow.checked && window.id !== currentWindowId) continue
+      tabs = await browser.tabs.query({ windowId: window.id });
+      list += processTabList(tabs, containers, containerBlacklist, format, userInput) + "\r\n\r\n";
     }
-    list += "\r\n\r\n"
   }
 
   popupTextarea.value = ''
 
   if (optionsCustomHeader) {
     var nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs
-
     header = optionsCustomHeader.replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/{num-tabs}/g, nbTabs)
-
     popupTextarea.value += header + '\r\n\r\n'
   }
 
@@ -147,6 +140,50 @@ async function updatePopup () {
 
   setSeparatorStyle()
   popupFilterTabs.focus()
+
+
+// Helper function to process a list of tabs
+function processTabList(tabs, containers, containerBlacklist, format, userInput) {
+  let list = '';
+  for (var tab of tabs) {
+    var containerPrefix = "";
+    var containerName = "";
+    var containerTitle = "";
+    if (optionsTrackContainer) {
+      var container = containers.find((container) => container.cookieStoreId == tab.cookieStoreId)
+      if (container !== undefined) {
+        var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
+        if(!blacklistMatch){
+          containerPrefix = "ext+container:name=" + container.name + "&url="
+          containerName = container.name
+          containerTitle = container.name + ": "
+        }}}
+
+    var tabPinned = tab.pinned
+    var tabURL = tab.url
+    var tabTitle = tab.title
+
+    if (optionsIgnorePinned && tabPinned) continue
+
+    if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP || (optionsTrackContainer && tabURL.startsWith('ext'))) {
+      actualNbTabs += 1
+
+      if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
+        nbFilterMatch += 1
+
+        if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+        list += format.replace(/{title}/g, tabTitle)
+                     .replace(/{url}/g, tabURL)
+                     .replace(/{window-id}/g, tab.windowId || '')
+                     .replace(/{container-name}/g, containerName)
+                     .replace(/{container-url}/g, containerPrefix)
+                     .replace(/{container-title}/g, containerTitle);
+      }
+    }
+  }
+  return list;
+}
 }
 
 function filterMatch (needle, haystack) {
@@ -248,4 +285,13 @@ function getOptions () {
     optionsFilterTabs = items.options.filterTabs
     optionsCustomHeader = items.options.customHeader
   })
+}
+
+function checkPlatform() {
+  if (os === 'android') {
+    // Add Android-specific styling and setup
+  }
+  else {
+    setLimitWindowVisibility()
+  }
 }

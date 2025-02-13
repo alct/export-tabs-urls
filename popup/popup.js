@@ -7,7 +7,7 @@ optionsIgnoreNonHTTP, optionsIgnorePinned, optionsFormatCustom, optionsFilterTab
 
 var defaultPopupStates = {
   'states': {
-    format: false,
+    format: true,
     popupLimitWindow: false
   }
 }
@@ -69,13 +69,12 @@ w.addEventListener('load', function () {
 })
 
 async function updatePopup () {
-  var containers =  await browser.contextualIdentities.query({});
-  var tabs = await browser.tabs.query({});
+  var containers = await browser.contextualIdentities.query({});
+  var windows = await browser.windows.getAll();
   var list = ''
   var header = ''
   var format = '{url}\r\n'
   var actualNbTabs = 0
-  var totalNbTabs = tabs.length
   var nbFilterMatch = 0
   var userInput = popupFilterTabs.value
   var jsonStr = "[" + optionsContainerBlacklist + "]"
@@ -94,39 +93,43 @@ async function updatePopup () {
 
   if (optionsFilterTabs) popupFilterTabsContainer.classList.remove('hidden')
 
-  for (var i = 0; i < totalNbTabs; i++) {
-    var containerPrefix = "";
-    var containerName = "";
-    var containerTitle = "";
-    if (optionsTrackContainer) {
-      var container = containers.find((container) => container.cookieStoreId == tabs[i].cookieStoreId)
-      if (container !== undefined) {
-        var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
-        if(!blacklistMatch){
-          containerPrefix = "ext+container:name=" + container.name + "&url="
-          containerName = container.name
-          containerTitle = container.name + ": "
-        }}}
+  for (var window of windows) {
+    if (popupLimitWindow.checked && window.id !== currentWindowId) continue
+    var tabs = await browser.tabs.query({ windowId: window.id });
+    for (var tab of tabs) {
+      var containerPrefix = "";
+      var containerName = "";
+      var containerTitle = "";
+      if (optionsTrackContainer) {
+        var container = containers.find((container) => container.cookieStoreId == tab.cookieStoreId)
+        if (container !== undefined) {
+          var blacklistMatch = containerBlacklist.find(containerReg => container.name.match(RegExp(containerReg)))
+          if(!blacklistMatch){
+            containerPrefix = "ext+container:name=" + container.name + "&url="
+            containerName = container.name
+            containerTitle = container.name + ": "
+          }}}
 
-    var tabWindowId = tabs[i].windowId
-    var tabPinned = tabs[i].pinned
-    var tabURL = tabs[i].url
-    var tabTitle = tabs[i].title
+      var tabWindowId = tab.windowId
+      var tabPinned = tab.pinned
+      var tabURL = tab.url
+      var tabTitle = tab.title
 
-    if (optionsIgnorePinned && tabPinned) continue
-    if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue
+      if (optionsIgnorePinned && tabPinned) continue
 
-    if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP || (optionsTrackContainer && tabURL.startsWith('ext'))) {
-      actualNbTabs += 1
+      if ((optionsIgnoreNonHTTP && tabURL.startsWith('http')) || !optionsIgnoreNonHTTP || (optionsTrackContainer && tabURL.startsWith('ext'))) {
+        actualNbTabs += 1
 
-      if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
-        nbFilterMatch += 1
+        if (filterMatch(userInput, [tabTitle, tabURL]) || userInput === '') {
+          nbFilterMatch += 1
 
-        if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+          if (/<\/?[a-zA-Z]+\/?>/.test(format)) tabTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-        list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId).replace(/{container-name}/g, containerName).replace(/{container-url}/g, containerPrefix).replace(/{container-title}/g, containerTitle);
+          list += format.replace(/{title}/g, tabTitle).replace(/{url}/g, tabURL).replace(/{window-id}/g, tabWindowId).replace(/{container-name}/g, containerName).replace(/{container-url}/g, containerPrefix).replace(/{container-title}/g, containerTitle);
+        }
       }
     }
+    list += "\r\n\r\n"
   }
 
   popupTextarea.value = ''

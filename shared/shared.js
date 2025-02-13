@@ -3,12 +3,13 @@ var w = window
 
 var defaultOptions = {
   'options': {
-    trackContainer: false,
+    trackContainer: true,
     ignoreNonHTTP: true,
     ignorePinned: false,
-    formatCustom: '',
+    formatCustom: "{container-url}{url}\r\n",
     filterTabs: true,
-    customHeader: ''
+    customHeader: '', 
+    containerBlacklist: ''
   }
 }
 

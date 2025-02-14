@@ -24,6 +24,7 @@ browser.runtime.getPlatformInfo(function (info) {
     browser.windows.getLastFocused(function (currentWindow) {
       currentWindowId = currentWindow.id
     })
+    setLimitWindowVisibility()
   }
 })
 
@@ -44,9 +45,6 @@ w.addEventListener('load', function () {
   // Add popup-page class for Android-specific styling
   d.body.classList.add('popup-page');
   
-  // Check platform and setup Android UI if needed
-  checkPlatform();
-
   popupFormat.addEventListener('change', function () {
     savePopupStates()
     updatePopup()
@@ -285,13 +283,4 @@ function getOptions () {
     optionsFilterTabs = items.options.filterTabs
     optionsCustomHeader = items.options.customHeader
   })
-}
-
-function checkPlatform() {
-  if (os === 'android') {
-    // Add Android-specific styling and setup
-  }
-  else {
-    setLimitWindowVisibility()
-  }
 }

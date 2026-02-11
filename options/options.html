@@ -1,12 +1,10 @@
-<!doctype html>
-<meta charset="utf-8">
-
-<script	src="/shared/shared.js"></script>
-<script	src="options.js"></script>
-
-<link href="/shared/shared.css" rel="stylesheet" type="text/css">
-<link href="options.css" rel="stylesheet" type="text/css">
-
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="/shared/shared.css" rel="stylesheet">
+    <link href="options.css" rel="stylesheet">
+</head>
 <body>
     <h1>Options</h1>
 
@@ -15,7 +13,7 @@
             <input type="checkbox" id="options-ignore-non-http" />
             <label for="options-ignore-non-http" data-i18n="optionsIgnoreNonHTTP"></label>
         </p>
-        <div data-i18n="optionsIgnoreNonHTTPDescription"></div>
+        <div data-i18n="optionsIgnoreNonHTTPDescription" data-i18n-html></div>
     </div>
 
     <div class="option">
@@ -23,7 +21,7 @@
             <input type="checkbox" id="options-ignore-pinned" />
             <label for="options-ignore-pinned" data-i18n="optionsIgnorePinned"></label>
         </p>
-        <div data-i18n="optionsIgnorePinnedDescription"></div>
+        <div data-i18n="optionsIgnorePinnedDescription" data-i18n-html></div>
     </div>
 
     <div class="option">
@@ -31,7 +29,7 @@
             <input type="checkbox" id="options-filter-tabs" />
             <label for="options-filter-tabs" data-i18n="optionsFilterTabs"></label>
         </p>
-        <div data-i18n="optionsFilterTabsDescription"></div>
+        <div data-i18n="optionsFilterTabsDescription" data-i18n-html></div>
     </div>
 
     <div class="option">
@@ -40,7 +38,7 @@
             <input type="text" id="options-format-custom" placeholder="" data-i18n="optionsFormatCustomPlaceholder" />
             <button type="button" id="options-button-reset-format" data-i18n="optionsButtonResetFormat"></button>
         </p>
-        <div data-i18n="optionsFormatCustomDescription"></div>
+        <div data-i18n="optionsFormatCustomDescription" data-i18n-html></div>
     </div>
 
     <div class="option">
@@ -49,6 +47,9 @@
             <input type="text" id="options-custom-header" placeholder="" data-i18n="optionsCustomHeaderPlaceholder" />
             <button type="button" id="options-button-reset-header" data-i18n="optionsButtonResetHeader"></button>
         </p>
-        <div data-i18n="optionsCustomHeaderDescription"></div>
+        <div data-i18n="optionsCustomHeaderDescription" data-i18n-html></div>
     </div>
+
+    <script type="module" src="options.js"></script>
 </body>
+</html>

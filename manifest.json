@@ -1,16 +1,20 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{17165bd9-9b71-4323-99a5-3d4ce49f3d75}"
+        }
+    },
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "0.2.12",
+    "version": "0.3.0",
     "default_locale": "en_US",
     "icons": {
         "16": "img/icon.svg",
         "48": "img/icon.svg",
         "128": "img/icon.svg"
     },
-    "browser_action": {
-        "browser_style": true,
+    "action": {
         "default_icon": "img/icon.svg",
         "default_title": "__MSG_appButtonDesc__",
         "default_popup": "popup/popup.html",
@@ -25,11 +29,9 @@
         }]
     },
     "options_ui": {
-        "page": "options/options.html",
-        "browser_style": true
+        "page": "options/options.html"
     },
     "permissions": [
-        "clipboardWrite",
         "notifications",
         "storage",
         "tabs"

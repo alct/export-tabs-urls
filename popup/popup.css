@@ -91,12 +91,12 @@ header h1 {
     width: 100%;
 }
 .popup-filter-tabs:focus,
-.popup-filter-tabs:not(:placeholder-shown) {
-
+.popup-textarea {
+    outline: none;
 }
 
 :not(.hidden) + .popup-textarea-container {
-    margin-top: 0;
+    margin-top: -1px;
 }
 :not(.hidden) + .popup-textarea-container::before {
     position: absolute;
@@ -118,7 +118,6 @@ header h1 {
 }
 .popup-textarea {
     line-height: 1.4;
-    margin-top: -1px;
     max-height: 28rem;
     min-height: 20rem;
     overflow-x: hidden;

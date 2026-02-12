@@ -1,91 +1,69 @@
-var optionsFormatCustom, optionsIgnoreNonHTTP, optionsIgnorePinned, optionsButtonResetFormat, optionsFilterTabs, optionsCustomHeader, optionsButtonResetHeader
+import { defaultOptions, localization } from '/shared/shared.js';
 
-w.addEventListener('load', function () {
-  optionsIgnoreNonHTTP = d.getElementById('options-ignore-non-http')
-  optionsIgnorePinned = d.getElementById('options-ignore-pinned')
-  optionsFormatCustom = d.getElementById('options-format-custom')
-  optionsButtonResetFormat = d.getElementById('options-button-reset-format')
-  optionsFilterTabs = d.getElementById('options-filter-tabs')
-  optionsCustomHeader = d.getElementById('options-custom-header')
-  optionsButtonResetHeader = d.getElementById('options-button-reset-header')
+async function init () {
+  const optionsIgnoreNonHTTP = document.querySelector('#options-ignore-non-http');
+  const optionsIgnorePinned = document.querySelector('#options-ignore-pinned');
+  const optionsFormatCustom = document.querySelector('#options-format-custom');
+  const optionsButtonResetFormat = document.querySelector('#options-button-reset-format');
+  const optionsFilterTabs = document.querySelector('#options-filter-tabs');
+  const optionsCustomHeader = document.querySelector('#options-custom-header');
+  const optionsButtonResetHeader = document.querySelector('#options-button-reset-header');
 
-  optionsIgnoreNonHTTP.addEventListener('change', function () {
-    saveOptions()
-  })
+  optionsIgnoreNonHTTP.addEventListener('change', saveOptions);
+  optionsIgnorePinned.addEventListener('change', saveOptions);
+  optionsFilterTabs.addEventListener('change', saveOptions);
 
-  optionsIgnorePinned.addEventListener('change', function () {
-    saveOptions()
-  })
+  optionsButtonResetFormat.addEventListener('click', () => {
+    optionsFormatCustom.value = '';
+    saveOptions();
+    updateResetVisibility();
+  });
 
-  optionsButtonResetFormat.addEventListener('click', function () {
-    optionsFormatCustom.value = ''
-    saveOptions()
-    setOptionsButtonResetFormatVisibility()
-  })
+  optionsFormatCustom.addEventListener('input', () => {
+    saveOptions();
+    updateResetVisibility();
+  });
 
-  optionsFormatCustom.addEventListener('input', function () {
-    saveOptions()
-    setOptionsButtonResetFormatVisibility()
-  })
+  optionsButtonResetHeader.addEventListener('click', () => {
+    optionsCustomHeader.value = '';
+    saveOptions();
+    updateResetVisibility();
+  });
 
-  optionsFilterTabs.addEventListener('change', function () {
-    saveOptions()
-  })
+  optionsCustomHeader.addEventListener('input', () => {
+    saveOptions();
+    updateResetVisibility();
+  });
 
-  optionsButtonResetHeader.addEventListener('click', function () {
-    optionsCustomHeader.value = ''
-    saveOptions()
-    setOptionsButtonResetHeaderVisibility()
-  })
+  await restoreOptions();
+  localization();
 
-  optionsCustomHeader.addEventListener('input', function () {
-    saveOptions()
-    setOptionsButtonResetHeaderVisibility()
-  })
+  function updateResetVisibility () {
+    optionsButtonResetFormat.classList.toggle('hidden', optionsFormatCustom.value === '');
+    optionsButtonResetHeader.classList.toggle('hidden', optionsCustomHeader.value === '');
+  }
 
-  restoreOptions()
-  localization()
-})
+  async function restoreOptions () {
+    const items = await browser.storage.local.get(defaultOptions);
+    optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP;
+    optionsIgnorePinned.checked = items.options.ignorePinned;
+    optionsFormatCustom.value = items.options.formatCustom;
+    optionsFilterTabs.checked = items.options.filterTabs;
+    optionsCustomHeader.value = items.options.customHeader;
+    updateResetVisibility();
+  }
 
-function setOptionsButtonResetFormatVisibility () {
-  if (optionsFormatCustom.value !== '') {
-    optionsButtonResetFormat.classList.remove('hidden')
-  } else {
-    optionsButtonResetFormat.classList.add('hidden')
+  function saveOptions () {
+    browser.storage.local.set({
+      options: {
+        ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
+        ignorePinned: optionsIgnorePinned.checked,
+        formatCustom: optionsFormatCustom.value,
+        filterTabs: optionsFilterTabs.checked,
+        customHeader: optionsCustomHeader.value
+      }
+    });
   }
 }
 
-function setOptionsButtonResetHeaderVisibility () {
-  if (optionsCustomHeader.value !== '') {
-    optionsButtonResetHeader.classList.remove('hidden')
-  } else {
-    optionsButtonResetHeader.classList.add('hidden')
-  }
-}
-
-function restoreOptions () {
-  let gettingItem = browser.storage.local.get(defaultOptions)
-
-  gettingItem.then(function (items) {
-    optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP
-    optionsIgnorePinned.checked = items.options.ignorePinned
-    optionsFormatCustom.value = items.options.formatCustom
-    optionsFilterTabs.checked = items.options.filterTabs
-    optionsCustomHeader.value = items.options.customHeader
-
-    setOptionsButtonResetFormatVisibility()
-    setOptionsButtonResetHeaderVisibility()
-  })
-}
-
-function saveOptions () {
-  browser.storage.local.set({
-    'options': {
-      ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
-      ignorePinned: optionsIgnorePinned.checked,
-      formatCustom: optionsFormatCustom.value,
-      filterTabs: optionsFilterTabs.checked,
-      customHeader: optionsCustomHeader.value
-    }
-  })
-}
+init();

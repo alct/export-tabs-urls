@@ -1,38 +1,37 @@
-var d = document
-var w = window
-
-var defaultOptions = {
-  'options': {
+export const defaultOptions = {
+  options: {
     ignoreNonHTTP: true,
     ignorePinned: false,
     formatCustom: '',
     filterTabs: true,
     customHeader: ''
   }
-}
+};
 
-function localization () {
-  d.querySelectorAll('[data-i18n]').forEach(function (node) {
-    var tag = node.tagName.toLowerCase()
-    var translation = browser.i18n.getMessage(node.dataset.i18n)
+export function localization () {
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    const tag = node.tagName.toLowerCase();
+    const translation = browser.i18n.getMessage(node.dataset.i18n);
 
     if (tag === 'input') {
       if (node.hasAttribute('placeholder')) {
-        node.placeholder = translation
+        node.placeholder = translation;
       } else {
-        node.value = translation
+        node.value = translation;
       }
+    } else if (node.dataset.i18nHtml !== undefined) {
+      node.innerHTML = translation;
     } else {
-      node.innerHTML = translation
+      node.textContent = translation;
     }
-  })
+  });
 }
 
 /**
- * Determine whether a vertical scrollbar is visible within an element
- * @param  {Object} element
- * @return {Boolean}
+ * Determine whether a vertical scrollbar is visible within an element.
+ * @param  {Element} element
+ * @return {boolean}
  */
-function hasScrollbar (element) {
-  return element.scrollHeight > element.clientHeight
+export function hasScrollbar (element) {
+  return element.scrollHeight > element.clientHeight;
 }

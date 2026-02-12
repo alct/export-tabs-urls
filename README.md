@@ -1,6 +1,6 @@
 # Export Tabs URLs
 
-[Export Tabs URLs](https://addons.mozilla.org/en-US/firefox/addon/export-tabs-urls-and-titles/) (ETU) is a Web browser extension that allows to list the URLs of all the open tabs and copy that list to clipboard or export it to a timestamped file.
+[Export Tabs URLs](https://addons.mozilla.org/firefox/addon/export-tabs-urls-and-titles/) (ETU) is a Web browser extension that allows to list the URLs of all the open tabs and copy that list to clipboard or export it to a timestamped file.
 
 Consider this add-on done (except for bugfixes). I may or may not add new features depending on the fun (or lack of it).
 

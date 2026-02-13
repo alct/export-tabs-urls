@@ -3,8 +3,7 @@
 }
 body {
     background: #fff;
-    font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 1em;
+    font: caption;
     margin: 0;
     min-width: 360px;
 }

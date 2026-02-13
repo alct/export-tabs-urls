@@ -7,7 +7,7 @@
     },
     "name": "__MSG_appName__",
     "description": "__MSG_appDesc__",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "default_locale": "en_US",
     "icons": {
         "16": "img/icon.svg",

@@ -124,7 +124,7 @@ async function init () {
         .replace(/\\r/g, '\r')
         .replace(/{num-tabs}/g, nbTabs);
 
-      popupTextarea.value += header + '\r\n\r\n';
+      popupTextarea.value += header + '\r\n';
     }
 
     popupTextarea.value += list;

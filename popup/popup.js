@@ -184,7 +184,13 @@ async function init () {
       list = list.replace(/\r?\n/g, '\r\n');
     }
 
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    const offset = -now.getTimezoneOffset();
+    const sign = offset >= 0 ? '+' : '-';
+    const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
+    const offsetMinutes = pad(Math.abs(offset) % 60);
+    const timestamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}T${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${sign}${offsetHours}${offsetMinutes}`;
     const blob = new Blob([list], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 

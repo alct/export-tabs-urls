@@ -51,7 +51,7 @@
         "message": "aucun"
     },
     "optionsCustomHeaderDescription": {
-        "message": "<p>Vous pouvez défénir une entête personnalisée ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{num-tabs}</code>: nombre d'onglets</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>Exportés depuis Export Tabs URLs (# liens: {num-tabs})</code></p>"
+        "message": "<p>Vous pouvez définir une entête personnalisée ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractère et les blocs spéciaux suivants:</p><ul><li><code>{num-tabs}</code>: nombre d'onglets</li><li><code>{date}</code>: date actuelle (AAAA-MM-JJ)</li><li><code>{time}</code>: heure actuelle (HH:mm:SS)</li><li><code>{utc-offset}</code>: décalage UTC (ex. +01:00)</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>Exportés le {date} à {time} (# liens: {num-tabs})\\r\\n</code></p>"
     },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"

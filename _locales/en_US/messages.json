@@ -51,7 +51,7 @@
         "message": "none"
     },
     "optionsCustomHeaderDescription": {
-        "message": "<p>You may define a custom header here.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{num-tabs}</code>: number of tabs</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>From Export Tabs URLs (# links: {num-tabs})</code></p>"
+        "message": "<p>You may define a custom header here.</p><p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{num-tabs}</code>: number of tabs</li><li><code>{date}</code>: current date (YYYY-MM-DD)</li><li><code>{time}</code>: current time (HH:mm:SS)</li><li><code>{utc-offset}</code>: UTC offset (e.g. +01:00)</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>Exported on {date} at {time} (# links: {num-tabs})\\r\\n</code></p>"
     },
     "popupButtonCopy": {
         "message": "Copy to clipboard"

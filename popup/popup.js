@@ -118,11 +118,15 @@ async function init () {
 
     if (optionsCustomHeader) {
       const nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs;
+      const ts = getTimestampParts();
 
       header = optionsCustomHeader
         .replace(/\\n/g, '\n')
         .replace(/\\r/g, '\r')
-        .replace(/{num-tabs}/g, nbTabs);
+        .replace(/{num-tabs}/g, nbTabs)
+        .replace(/{date}/g, ts.date)
+        .replace(/{time}/g, ts.time)
+        .replace(/{utc-offset}/g, ts.utcOffset);
 
       popupTextarea.value += header + '\r\n';
     }
@@ -132,6 +136,24 @@ async function init () {
 
     popupTextareaContainer.classList.toggle('has-scrollbar', hasScrollbar(popupTextarea));
     popupFilterTabs.focus();
+  }
+
+  function getTimestampParts () {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+
+    const date = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const time = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+    const offset = -now.getTimezoneOffset();
+    const sign = offset >= 0 ? '+' : '-';
+    const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
+    const offsetMinutes = pad(Math.abs(offset) % 60);
+    const utcOffset = `${sign}${offsetHours}:${offsetMinutes}`;
+
+    const compact = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}T${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${sign}${offsetHours}${offsetMinutes}`;
+
+    return { date, time, utcOffset, compact };
   }
 
   function filterMatch (needle, haystack) {
@@ -184,13 +206,7 @@ async function init () {
       list = list.replace(/\r?\n/g, '\r\n');
     }
 
-    const now = new Date();
-    const pad = (n) => String(n).padStart(2, '0');
-    const offset = -now.getTimezoneOffset();
-    const sign = offset >= 0 ? '+' : '-';
-    const offsetHours = pad(Math.floor(Math.abs(offset) / 60));
-    const offsetMinutes = pad(Math.abs(offset) % 60);
-    const timestamp = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}T${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}${sign}${offsetHours}${offsetMinutes}`;
+    const { compact: timestamp } = getTimestampParts();
     const blob = new Blob([list], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 

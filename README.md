@@ -15,7 +15,6 @@ Consider this add-on done (except for bugfixes). I may or may not add new featur
 ## Permissions
 
 - **Access browser tabs** : required to list the tabs ;
-- **Display notifications** : not required stricto sensu (as the extension could work without it) but it is used to improve the user experience by providing visual feedback about what is going on ;
 - **Storage** : required to store settings.
 
 ## Screenshots

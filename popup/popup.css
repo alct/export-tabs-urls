@@ -104,17 +104,54 @@ header h1 {
     content: '';
     background: #ccc;
     height: 1px;
-    width: calc(100% - 3rem);
+    width: calc(100% - 1rem);
     margin-left: .5rem;
-    z-index: 9999;
+    z-index: 900;
 }
+/*
+    Originally added to fix a scrollbar rendering inconsistency on Windows.
+    Now causing a misaligned separator between the filter field and results on Linux (GNOME).
+    Disabled until it can be re-tested on Windows.
+
 :not(.hidden) + .popup-textarea-container.has-scrollbar::before {
-    width: calc(100% - 3.8rem);
+    width: calc(100% - 1rem);
+}
+*/
+.popup-textarea-container {
+    position: relative;
+    overflow: hidden;
+}
+.popup-notification {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 950;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .85rem;
+    color: #155724;
+    text-align: center;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    transform: translateY(-100%);
+    transition: transform .3s ease;
+}
+.popup-notification.visible {
+    transform: translateY(0);
+}
+.popup-notification.error {
+    color: #721c24;
+    background: #f8d7da;
+    border-color: #f5c6cb;
 }
 .hidden + .popup-textarea-container .popup-textarea {
     margin-top: 0;
-    border-top-width: 1px;
     padding-top: .5rem;
+    border-top-width: 1px;
 }
 .popup-textarea {
     line-height: 1.4;

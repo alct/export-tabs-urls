@@ -36,6 +36,7 @@ async function init () {
   const popupButtonCopy = document.querySelector('.popup-button-copy');
   const popupButtonExport = document.querySelector('.popup-button-export');
   const popupButtonSettings = document.querySelector('.popup-button-settings');
+  const popupNotification = document.querySelector('.popup-notification');
 
   await loadOptions();
   await restorePopupStates();
@@ -176,24 +177,23 @@ async function init () {
     if (popupButtonCopy.classList.contains('disabled')) return;
 
     let messageKey;
+    let isError = false;
     try {
       await navigator.clipboard.writeText(popupTextarea.value);
       messageKey = 'copiedToClipboard';
     } catch {
       messageKey = 'notCopiedToClipboard';
+      isError = true;
     }
 
-    browser.notifications.create('ExportTabsURLs', {
-      type: 'basic',
-      title: browser.i18n.getMessage('appName'),
-      iconUrl: '../img/icon.svg',
-      message: browser.i18n.getMessage(messageKey)
-    });
+    popupNotification.textContent = browser.i18n.getMessage(messageKey);
+    popupNotification.classList.toggle('error', isError);
+    popupNotification.classList.add('visible');
 
     popupButtonCopy.classList.add('disabled');
 
     setTimeout(() => {
-      browser.notifications.clear('ExportTabsURLs');
+      popupNotification.classList.remove('visible');
       popupButtonCopy.classList.remove('disabled');
     }, 3000);
   }

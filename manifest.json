@@ -32,7 +32,6 @@
         "page": "options/options.html"
     },
     "permissions": [
-        "notifications",
         "storage",
         "tabs"
     ]

@@ -21,7 +21,7 @@
         "message": "Zurücksetzen"
     },
     "optionsFormatCustomDescription": {
-        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: Titel eines Tabs</li><li><code>{url}</code>: URL eines Tabs</li><li><code>{window-id}</code>: ID des Fensters, das einen Tab enthält</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
+        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: Titel eines Tabs</li><li><code>{url}</code>: URL eines Tabs</li><li><code>{window-id}</code>: ID des Fensters, das einen Tab enthält</li><li><code>{tab-group}</code>: Name der Tab-Gruppe (leer wenn nicht gruppiert)</li><li><code>\\\\r\\\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>[{title}]({url})\\\\r\\\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
         "message": "Ignoriere nicht-HTTP(S) URLs"
@@ -51,7 +51,25 @@
         "message": "keiner"
     },
     "optionsCustomHeaderDescription": {
-        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>{date}</code>: aktuelles Datum (JJJJ-MM-TT)</li><li><code>{time}</code>: aktuelle Uhrzeit (HH:mm:SS)</li><li><code>{utc-offset}</code>: UTC-Versatz (z.B. +01:00)</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>Exportiert am {date} um {time} (# Links: {num-tabs})\\r\\n</code></p>"
+        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>{date}</code>: aktuelles Datum (JJJJ-MM-TT)</li><li><code>{time}</code>: aktuelle Uhrzeit (HH:mm:SS)</li><li><code>{utc-offset}</code>: UTC-Versatz (z.B. +01:00)</li><li><code>\\\\r\\\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>Exportiert am {date} um {time} (# Links: {num-tabs})\\\\r\\\\n</code></p>"
+    },
+    "optionsGroupBy": {
+        "message": "Tabs gruppieren nach"
+    },
+    "optionsGroupByNone": {
+        "message": "Keine Gruppierung"
+    },
+    "optionsGroupByWindow": {
+        "message": "Fenster"
+    },
+    "optionsGroupByTabGroup": {
+        "message": "Tab-Gruppe"
+    },
+    "optionsGroupByBoth": {
+        "message": "Fenster und Tab-Gruppe"
+    },
+    "optionsGroupByDescription": {
+        "message": "<p>Wenn aktiviert, werden die exportierten Tabs in Abschnitte mit Überschriften organisiert.</p>"
     },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"

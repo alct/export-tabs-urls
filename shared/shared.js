@@ -4,7 +4,8 @@ export const defaultOptions = {
     ignorePinned: false,
     formatCustom: '',
     filterTabs: true,
-    customHeader: ''
+    customHeader: '',
+    groupBy: 'none'
   }
 };
 
@@ -34,4 +35,15 @@ export function localization () {
  */
 export function hasScrollbar (element) {
   return element.scrollHeight > element.clientHeight;
+}
+
+export async function buildGroupMap () {
+  const map = new Map();
+  if (typeof browser.tabGroups === 'undefined') return map;
+
+  const groups = await browser.tabGroups.query({});
+  for (const g of groups) {
+    map.set(g.id, g.title || `${g.color.charAt(0).toUpperCase()}${g.color.slice(1)} group`);
+  }
+  return map;
 }

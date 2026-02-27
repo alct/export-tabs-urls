@@ -1,4 +1,4 @@
-import { defaultOptions, localization, hasScrollbar } from '/shared/shared.js';
+import { defaultOptions, localization, hasScrollbar, buildGroupMap } from '/shared/shared.js';
 
 const defaultPopupStates = {
   states: {
@@ -14,6 +14,8 @@ let optionsIgnorePinned;
 let optionsFormatCustom;
 let optionsFilterTabs;
 let optionsCustomHeader;
+let optionsGroupBy;
+let groupMap;
 
 async function init () {
   const [platformInfo, currentWindow] = await Promise.all([
@@ -63,9 +65,12 @@ async function init () {
   localization();
 
   async function updatePopup () {
-    const tabs = await browser.tabs.query({});
+    const [tabs, latestGroupMap] = await Promise.all([
+      browser.tabs.query({}),
+      buildGroupMap()
+    ]);
+    groupMap = latestGroupMap;
 
-    let list = '';
     let header = '';
     let format = '{url}\r\n';
     let actualNbTabs = 0;
@@ -90,8 +95,10 @@ async function init () {
 
     const formatContainsHtml = /<\/?[a-zA-Z]+\/?>/.test(format);
 
+    const filtered = [];
+
     for (let i = 0; i < totalNbTabs; i++) {
-      const { windowId: tabWindowId, pinned: tabPinned, url: tabURL, title: tabTitle } = tabs[i];
+      const { windowId: tabWindowId, pinned: tabPinned, url: tabURL, title: tabTitle, groupId: tabGroupId } = tabs[i];
 
       if (optionsIgnorePinned && tabPinned) continue;
       if (popupLimitWindow.checked && tabWindowId !== currentWindowId) continue;
@@ -101,18 +108,23 @@ async function init () {
 
         if (userInput === '' || filterMatch(userInput, [tabTitle, tabURL])) {
           nbFilterMatch += 1;
-
-          let safeTitle = tabTitle;
-          if (formatContainsHtml) {
-            safeTitle = tabTitle.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-          }
-
-          list += format
-            .replace(/{title}/g, safeTitle)
-            .replace(/{url}/g, tabURL)
-            .replace(/{window-id}/g, tabWindowId);
+          filtered.push({
+            tabTitle,
+            tabURL,
+            tabWindowId,
+            tabGroupId: tabGroupId ?? -1,
+            tabGroupName: groupMap.get(tabGroupId) || ''
+          });
         }
       }
+    }
+
+    let list = '';
+
+    if (optionsGroupBy === 'none') {
+      list = buildFlatList(filtered, format, formatContainsHtml);
+    } else {
+      list = buildGroupedList(filtered, format, formatContainsHtml, optionsGroupBy);
     }
 
     popupTextarea.value = '';
@@ -137,6 +149,79 @@ async function init () {
 
     popupTextareaContainer.classList.toggle('has-scrollbar', hasScrollbar(popupTextarea));
     popupFilterTabs.focus();
+  }
+
+  function formatTab (tab, format, formatContainsHtml) {
+    let safeTitle = tab.tabTitle;
+    if (formatContainsHtml) {
+      safeTitle = safeTitle
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    return format
+      .replace(/{title}/g, safeTitle)
+      .replace(/{url}/g, tab.tabURL)
+      .replace(/{window-id}/g, tab.tabWindowId)
+      .replace(/{tab-group}/g, tab.tabGroupName);
+  }
+
+  function buildFlatList (tabs, format, formatContainsHtml) {
+    let list = '';
+    for (const tab of tabs) {
+      list += formatTab(tab, format, formatContainsHtml);
+    }
+    return list;
+  }
+
+  function buildGroupedList (tabs, format, formatContainsHtml, groupBy) {
+    const sections = new Map();
+
+    for (const tab of tabs) {
+      let key, label;
+
+      if (groupBy === 'window') {
+        key = `w-${tab.tabWindowId}`;
+        label = `Window ${tab.tabWindowId}`;
+      } else if (groupBy === 'tab-group') {
+        if (tab.tabGroupId === -1) {
+          key = 'g-none';
+          label = 'Ungrouped';
+        } else {
+          key = `g-${tab.tabGroupId}`;
+          label = tab.tabGroupName || `Group ${tab.tabGroupId}`;
+        }
+      } else if (groupBy === 'both') {
+        if (tab.tabGroupId === -1) {
+          key = `w-${tab.tabWindowId}-g-none`;
+          label = `Window ${tab.tabWindowId} \u203A Ungrouped`;
+        } else {
+          const gName = tab.tabGroupName || `Group ${tab.tabGroupId}`;
+          key = `w-${tab.tabWindowId}-g-${tab.tabGroupId}`;
+          label = `Window ${tab.tabWindowId} \u203A ${gName}`;
+        }
+      }
+
+      if (!sections.has(key)) {
+        sections.set(key, { label, tabs: [] });
+      }
+      sections.get(key).tabs.push(tab);
+    }
+
+    let list = '';
+    let isFirst = true;
+
+    for (const [, section] of sections) {
+      if (!isFirst) list += '\r\n';
+      list += `## ${section.label}\r\n\r\n`;
+      for (const tab of section.tabs) {
+        list += formatTab(tab, format, formatContainsHtml);
+      }
+      isFirst = false;
+    }
+
+    return list;
   }
 
   function getTimestampParts () {
@@ -245,6 +330,7 @@ async function init () {
     optionsFormatCustom = items.options.formatCustom;
     optionsFilterTabs = items.options.filterTabs;
     optionsCustomHeader = items.options.customHeader;
+    optionsGroupBy = items.options.groupBy || 'none';
   }
 }
 

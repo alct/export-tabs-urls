@@ -33,6 +33,7 @@
     },
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "tabGroups"
     ]
 }

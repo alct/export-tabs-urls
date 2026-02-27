@@ -8,10 +8,12 @@ async function init () {
   const optionsFilterTabs = document.querySelector('#options-filter-tabs');
   const optionsCustomHeader = document.querySelector('#options-custom-header');
   const optionsButtonResetHeader = document.querySelector('#options-button-reset-header');
+  const optionsGroupBy = document.querySelector('#options-group-by');
 
   optionsIgnoreNonHTTP.addEventListener('change', saveOptions);
   optionsIgnorePinned.addEventListener('change', saveOptions);
   optionsFilterTabs.addEventListener('change', saveOptions);
+  optionsGroupBy.addEventListener('change', saveOptions);
 
   optionsButtonResetFormat.addEventListener('click', () => {
     optionsFormatCustom.value = '';
@@ -50,6 +52,7 @@ async function init () {
     optionsFormatCustom.value = items.options.formatCustom;
     optionsFilterTabs.checked = items.options.filterTabs;
     optionsCustomHeader.value = items.options.customHeader;
+    optionsGroupBy.value = items.options.groupBy || 'none';
     updateResetVisibility();
   }
 
@@ -60,7 +63,8 @@ async function init () {
         ignorePinned: optionsIgnorePinned.checked,
         formatCustom: optionsFormatCustom.value,
         filterTabs: optionsFilterTabs.checked,
-        customHeader: optionsCustomHeader.value
+        customHeader: optionsCustomHeader.value,
+        groupBy: optionsGroupBy.value
       }
     });
   }

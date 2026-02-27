@@ -8,10 +8,11 @@ For context on the deliberate lack of Chrome(ium) support, please [see my commen
 
 ## Features
 
-- **Include titles** : ETU provides a default format which displays titles along tabs URLs ;
-- **Custom format** : optionally, custom patterns can be defined instead of the default "include titles" one (e.g. markdown) ;
-- **Filter tabs** : ETU provides a RegExp-enabled tabs filter ;
-- **Limit to current window** : optionally, the list can be limited to the current window ;
+- **Include titles**: ETU provides a default format which displays titles along tabs URLs ;
+- **Custom format**: optionally, custom patterns can be defined instead of the default "include titles" one (e.g. markdown) ;
+- **Filter tabs**: ETU provides a RegExp-enabled tabs filter ;
+- **Group tabs**: optionally, exported tabs can be organized into sections grouped by window, by tab group, or by both;
+- **Limit to current window**: optionally, the list can be limited to the current window ;
 - **List non-HTTP(s) URLs** : optionally, ETU can list each and every tab, including cases where the URL scheme isn't HTTP(s)
 
 ## Permissions

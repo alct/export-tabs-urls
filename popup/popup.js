@@ -11,9 +11,9 @@ let currentWindowId;
 let os;
 let optionsIgnoreNonHTTP;
 let optionsIgnorePinned;
-let optionsFormatCustom;
+let optionsFormatCustomTab;
 let optionsFilterTabs;
-let optionsCustomHeader;
+let optionsCustomGlobalHeader;
 let optionsGroupBy;
 let groupMap;
 
@@ -33,7 +33,7 @@ async function init () {
   const popupTextareaContainer = document.querySelector('.popup-textarea-container');
   const popupFormat = document.querySelector('#popup-format');
   const popupLabelFormatTitles = document.querySelector('.popup-label-format-titles');
-  const popupLabelFormatCustom = document.querySelector('.popup-label-format-custom');
+  const popupLabelFormatCustomTab = document.querySelector('.popup-label-format-custom-tab');
   const popupLimitWindow = document.querySelector('#popup-limit-window');
   const popupButtonCopy = document.querySelector('.popup-button-copy');
   const popupButtonExport = document.querySelector('.popup-button-export');
@@ -82,12 +82,12 @@ async function init () {
       format = '{title}\r\n{url}\r\n\r\n';
     }
 
-    if (optionsFormatCustom) {
+    if (optionsFormatCustomTab) {
       popupLabelFormatTitles.classList.add('hidden');
-      popupLabelFormatCustom.classList.remove('hidden');
+      popupLabelFormatCustomTab.classList.remove('hidden');
 
       if (popupFormat.checked) {
-        format = optionsFormatCustom.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
+        format = optionsFormatCustomTab.replace(/\\n/g, '\n').replace(/\\r/g, '\r');
       }
     }
 
@@ -129,11 +129,11 @@ async function init () {
 
     popupTextarea.value = '';
 
-    if (optionsCustomHeader) {
+    if (optionsCustomGlobalHeader) {
       const nbTabs = (userInput !== '') ? nbFilterMatch : actualNbTabs;
       const ts = getTimestampParts();
 
-      header = optionsCustomHeader
+      header = optionsCustomGlobalHeader
         .replace(/\\n/g, '\n')
         .replace(/\\r/g, '\r')
         .replace(/{num-tabs}/g, nbTabs)
@@ -327,9 +327,9 @@ async function init () {
     const items = await browser.storage.local.get(defaultOptions);
     optionsIgnoreNonHTTP = items.options.ignoreNonHTTP;
     optionsIgnorePinned = items.options.ignorePinned;
-    optionsFormatCustom = items.options.formatCustom;
+    optionsFormatCustomTab = items.options.formatCustom;
     optionsFilterTabs = items.options.filterTabs;
-    optionsCustomHeader = items.options.customHeader;
+    optionsCustomGlobalHeader = items.options.customHeader;
     optionsGroupBy = items.options.groupBy || 'none';
   }
 }

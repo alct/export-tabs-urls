@@ -3,11 +3,11 @@ import { defaultOptions, localization } from '/shared/shared.js';
 async function init () {
   const optionsIgnoreNonHTTP = document.querySelector('#options-ignore-non-http');
   const optionsIgnorePinned = document.querySelector('#options-ignore-pinned');
-  const optionsFormatCustom = document.querySelector('#options-format-custom');
-  const optionsButtonResetFormat = document.querySelector('#options-button-reset-format');
+  const optionsFormatCustomTab = document.querySelector('#options-format-custom-tab');
+  const optionsButtonResetTabFormat = document.querySelector('#options-button-reset-tab-format');
   const optionsFilterTabs = document.querySelector('#options-filter-tabs');
-  const optionsCustomHeader = document.querySelector('#options-custom-header');
-  const optionsButtonResetHeader = document.querySelector('#options-button-reset-header');
+  const optionsCustomGlobalHeader = document.querySelector('#options-custom-global-header');
+  const optionsButtonResetGlobalHeader = document.querySelector('#options-button-reset-global-header');
   const optionsGroupBy = document.querySelector('#options-group-by');
 
   optionsIgnoreNonHTTP.addEventListener('change', saveOptions);
@@ -15,24 +15,24 @@ async function init () {
   optionsFilterTabs.addEventListener('change', saveOptions);
   optionsGroupBy.addEventListener('change', saveOptions);
 
-  optionsButtonResetFormat.addEventListener('click', () => {
-    optionsFormatCustom.value = '';
+  optionsButtonResetTabFormat.addEventListener('click', () => {
+    optionsFormatCustomTab.value = '';
     saveOptions();
     updateResetVisibility();
   });
 
-  optionsFormatCustom.addEventListener('input', () => {
+  optionsFormatCustomTab.addEventListener('input', () => {
     saveOptions();
     updateResetVisibility();
   });
 
-  optionsButtonResetHeader.addEventListener('click', () => {
-    optionsCustomHeader.value = '';
+  optionsButtonResetGlobalHeader.addEventListener('click', () => {
+    optionsCustomGlobalHeader.value = '';
     saveOptions();
     updateResetVisibility();
   });
 
-  optionsCustomHeader.addEventListener('input', () => {
+  optionsCustomGlobalHeader.addEventListener('input', () => {
     saveOptions();
     updateResetVisibility();
   });
@@ -41,17 +41,17 @@ async function init () {
   localization();
 
   function updateResetVisibility () {
-    optionsButtonResetFormat.classList.toggle('hidden', optionsFormatCustom.value === '');
-    optionsButtonResetHeader.classList.toggle('hidden', optionsCustomHeader.value === '');
+    optionsButtonResetTabFormat.classList.toggle('hidden', optionsFormatCustomTab.value === '');
+    optionsButtonResetGlobalHeader.classList.toggle('hidden', optionsCustomGlobalHeader.value === '');
   }
 
   async function restoreOptions () {
     const items = await browser.storage.local.get(defaultOptions);
     optionsIgnoreNonHTTP.checked = items.options.ignoreNonHTTP;
     optionsIgnorePinned.checked = items.options.ignorePinned;
-    optionsFormatCustom.value = items.options.formatCustom;
+    optionsFormatCustomTab.value = items.options.formatCustom;
     optionsFilterTabs.checked = items.options.filterTabs;
-    optionsCustomHeader.value = items.options.customHeader;
+    optionsCustomGlobalHeader.value = items.options.customHeader;
     optionsGroupBy.value = items.options.groupBy || 'none';
     updateResetVisibility();
   }
@@ -61,9 +61,9 @@ async function init () {
       options: {
         ignoreNonHTTP: optionsIgnoreNonHTTP.checked,
         ignorePinned: optionsIgnorePinned.checked,
-        formatCustom: optionsFormatCustom.value,
+        formatCustom: optionsFormatCustomTab.value,
         filterTabs: optionsFilterTabs.checked,
-        customHeader: optionsCustomHeader.value,
+        customHeader: optionsCustomGlobalHeader.value,
         groupBy: optionsGroupBy.value
       }
     });

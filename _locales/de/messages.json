@@ -8,20 +8,20 @@
     "appDesc": {
         "message": "Speichert eine Liste aller offenen Tabs als Textdatei."
     },
-    "optionsFormatCustom": {
-        "message": "Benutzerdefiniertes Format"
+    "optionsFormatCustomTab": {
+        "message": "Benutzerdefiniertes Tab-Format"
     },
-    "optionsFormatCustomPlaceholder": {
+    "optionsFormatCustomTabPlaceholder": {
         "message": "keiner"
     },
-    "optionsButtonResetFormat": {
+    "optionsButtonResetTabFormat": {
         "message": "Zurücksetzen"
     },
-    "optionsButtonResetHeader": {
+    "optionsButtonResetGlobalHeader": {
         "message": "Zurücksetzen"
     },
-    "optionsFormatCustomDescription": {
-        "message": "<p>Sie können ein benutzerdefiniertes Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: Titel eines Tabs</li><li><code>{url}</code>: URL eines Tabs</li><li><code>{window-id}</code>: ID des Fensters, das einen Tab enthält</li><li><code>{tab-group}</code>: Name der Tab-Gruppe (leer wenn nicht gruppiert)</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
+    "optionsFormatCustomTabDescription": {
+        "message": "<p>Sie können ein benutzerdefiniertes Tab-Format anstelle des Standardformats definieren.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{title}</code>: Titel eines Tabs</li><li><code>{url}</code>: URL eines Tabs</li><li><code>{window-id}</code>: ID des Fensters, das einen Tab enthält</li><li><code>{tab-group}</code>: Name der Tab-Gruppe (leer wenn nicht gruppiert)</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>[{title}]({url})\\r\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
         "message": "Ignoriere nicht-HTTP(S) URLs"
@@ -44,14 +44,14 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filtere Tabs"
     },
-    "optionsCustomHeader": {
-        "message": "Benutzerdefinierter Header"
+    "optionsCustomGlobalHeader": {
+        "message": "Benutzerdefinierter globaler Header"
     },
-    "optionsCustomHeaderPlaceholder": {
+    "optionsCustomGlobalHeaderPlaceholder": {
         "message": "keiner"
     },
-    "optionsCustomHeaderDescription": {
-        "message": "<p>Sie können hier einen benutzerdefinierten Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>{date}</code>: aktuelles Datum (JJJJ-MM-TT)</li><li><code>{time}</code>: aktuelle Uhrzeit (HH:mm:SS)</li><li><code>{utc-offset}</code>: UTC-Versatz (z.B. +01:00)</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>Exportiert am {date} um {time} (# Links: {num-tabs})\\r\\n</code></p>"
+    "optionsCustomGlobalHeaderDescription": {
+        "message": "<p>Sie können hier einen benutzerdefinierten globalen Header eintragen.</p><p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{num-tabs}</code>: Anzahl von Tabs</li><li><code>{date}</code>: aktuelles Datum (JJJJ-MM-TT)</li><li><code>{time}</code>: aktuelle Uhrzeit (HH:mm:SS)</li><li><code>{utc-offset}</code>: UTC-Versatz (z.B. +01:00)</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>Exportiert am {date} um {time} (# Links: {num-tabs})\\r\\n</code></p>"
     },
     "optionsGroupBy": {
         "message": "Tabs gruppieren nach"
@@ -80,8 +80,8 @@
     "popupLimitWindow": {
         "message": "Auf das aktuelle Fenster begrenzen"
     },
-    "popupLabelFormatCustom": {
-        "message": "Benutzerdefiniertes Format"
+    "popupLabelFormatCustomTab": {
+        "message": "Benutzerdefiniertes Tab-Format"
     },
     "popupLabelFormatTitles": {
         "message": "Titel einschließen"

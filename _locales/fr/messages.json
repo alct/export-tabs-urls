@@ -8,20 +8,20 @@
     "appDesc": {
         "message": "Sauvegarde les adresses des onglets ouverts dans un fichier."
     },
-    "optionsFormatCustom": {
-        "message": "Format personnalisé"
+    "optionsFormatCustomTab": {
+        "message": "Format d'onglet personnalisé"
     },
-    "optionsFormatCustomPlaceholder": {
+    "optionsFormatCustomTabPlaceholder": {
         "message": "aucun"
     },
-    "optionsButtonResetFormat": {
+    "optionsButtonResetTabFormat": {
         "message": "Réinitialiser"
     },
-    "optionsButtonResetHeader": {
+    "optionsButtonResetGlobalHeader": {
         "message": "Réinitialiser"
     },
-    "optionsFormatCustomDescription": {
-        "message": "<p>Vous pouvez définir un format personnalisé à la place de celui par défaut \"Inclure les titres\".</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{title}</code>: titre d'un onglet</li><li><code>{url}</code>: URL d'un onglet</li><li><code>{window-id}</code>: ID de la fenêtre contenant un onglet</li><li><code>{tab-group}</code>: nom du groupe de l'onglet (vide si non groupé)</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>[{title}]({url})\\r\\n</code></p>"
+    "optionsFormatCustomTabDescription": {
+        "message": "<p>Vous pouvez définir un format d'onglet personnalisé à la place de celui par défaut \"Inclure les titres\".</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{title}</code>: titre d'un onglet</li><li><code>{url}</code>: URL d'un onglet</li><li><code>{window-id}</code>: ID de la fenêtre contenant un onglet</li><li><code>{tab-group}</code>: nom du groupe de l'onglet (vide si non groupé)</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>[{title}]({url})\\r\\n</code></p>"
     },
     "optionsIgnoreNonHTTP": {
         "message": "Ignorer les URLs non-HTTP(S)"
@@ -44,14 +44,14 @@
     "popupFilterTabsPlaceholder": {
         "message": "Filtrer les onglets"
     },
-    "optionsCustomHeader": {
-        "message": "Entête personnalisée"
+    "optionsCustomGlobalHeader": {
+        "message": "Entête globale personnalisée"
     },
-    "optionsCustomHeaderPlaceholder": {
+    "optionsCustomGlobalHeaderPlaceholder": {
         "message": "aucun"
     },
-    "optionsCustomHeaderDescription": {
-        "message": "<p>Vous pouvez définir une entête personnalisée ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{num-tabs}</code>: nombre d'onglets</li><li><code>{date}</code>: date actuelle (AAAA-MM-JJ)</li><li><code>{time}</code>: heure actuelle (HH:mm:SS)</li><li><code>{utc-offset}</code>: décalage UTC (ex. +01:00)</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>Exportés le {date} à {time} (# liens: {num-tabs})\\r\\n</code></p>"
+    "optionsCustomGlobalHeaderDescription": {
+        "message": "<p>Vous pouvez définir une entête globale personnalisée ici.</p><p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{num-tabs}</code>: nombre d'onglets</li><li><code>{date}</code>: date actuelle (AAAA-MM-JJ)</li><li><code>{time}</code>: heure actuelle (HH:mm:SS)</li><li><code>{utc-offset}</code>: décalage UTC (ex. +01:00)</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>Exportés le {date} à {time} (# liens: {num-tabs})\\r\\n</code></p>"
     },
     "optionsGroupBy": {
         "message": "Regrouper les onglets par"
@@ -74,8 +74,8 @@
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
     },
-    "popupLabelFormatCustom": {
-        "message": "Format personnalisé"
+    "popupLabelFormatCustomTab": {
+        "message": "Format d'onglet personnalisé"
     },
     "popupButtonExport": {
         "message": "Exporter vers un fichier"

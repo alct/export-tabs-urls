@@ -24,7 +24,7 @@ This is a request, not a license restriction.
 ## Permissions
 
 - **Access browser tabs** : required to list the tabs ;
-- **Access browser tab groups** : required to read tab group metadata and the grouping feature ;
+- **Access browser tab groups** : required to read tab group metadata and for the grouping feature ;
 - **Storage** : required to store settings.
 
 ## Screenshots

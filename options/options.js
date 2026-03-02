@@ -9,11 +9,28 @@ async function init () {
   const optionsCustomGlobalHeader = document.querySelector('#options-custom-global-header');
   const optionsButtonResetGlobalHeader = document.querySelector('#options-button-reset-global-header');
   const optionsGroupBy = document.querySelector('#options-group-by');
+  const optionsCustomSectionHeader = document.querySelector('#options-custom-section-header');
+  const optionsButtonResetSectionHeader = document.querySelector('#options-button-reset-section-header');
+  const optionsSectionHeaderContainer = document.querySelector('.option-section-header');
 
   optionsIgnoreNonHTTP.addEventListener('change', saveOptions);
   optionsIgnorePinned.addEventListener('change', saveOptions);
   optionsFilterTabs.addEventListener('change', saveOptions);
-  optionsGroupBy.addEventListener('change', saveOptions);
+  optionsGroupBy.addEventListener('change', () => {
+    saveOptions();
+    updateSectionHeaderVisibility();
+  });
+
+  optionsCustomSectionHeader.addEventListener('input', () => {
+    saveOptions();
+    updateResetVisibility();
+  });
+
+  optionsButtonResetSectionHeader.addEventListener('click', () => {
+    optionsCustomSectionHeader.value = '';
+    saveOptions();
+    updateResetVisibility();
+  });
 
   optionsButtonResetTabFormat.addEventListener('click', () => {
     optionsFormatCustomTab.value = '';
@@ -43,6 +60,11 @@ async function init () {
   function updateResetVisibility () {
     optionsButtonResetTabFormat.classList.toggle('hidden', optionsFormatCustomTab.value === '');
     optionsButtonResetGlobalHeader.classList.toggle('hidden', optionsCustomGlobalHeader.value === '');
+    optionsButtonResetSectionHeader.classList.toggle('hidden', optionsCustomSectionHeader.value === '');
+  }
+
+  function updateSectionHeaderVisibility () {
+    optionsSectionHeaderContainer.classList.toggle('hidden', optionsGroupBy.value === 'none' || optionsGroupBy.value === '');
   }
 
   async function restoreOptions () {
@@ -53,7 +75,9 @@ async function init () {
     optionsFilterTabs.checked = items.options.filterTabs;
     optionsCustomGlobalHeader.value = items.options.customHeader;
     optionsGroupBy.value = items.options.groupBy || 'none';
+    optionsCustomSectionHeader.value = items.options.customSectionHeader;
     updateResetVisibility();
+    updateSectionHeaderVisibility();
   }
 
   function saveOptions () {
@@ -64,7 +88,8 @@ async function init () {
         formatCustom: optionsFormatCustomTab.value,
         filterTabs: optionsFilterTabs.checked,
         customHeader: optionsCustomGlobalHeader.value,
-        groupBy: optionsGroupBy.value
+        groupBy: optionsGroupBy.value,
+        customSectionHeader: optionsCustomSectionHeader.value
       }
     });
   }

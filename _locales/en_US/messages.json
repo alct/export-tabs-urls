@@ -69,7 +69,7 @@
         "message": "Window and tab group"
     },
     "optionsGroupByDescription": {
-        "message": "<p>When enabled, exported tabs are organized into sections with headers.</p>"
+        "message": "<p>When enabled, exported tabs are organized into sections with headers.</p><p>You can define a custom section header.</p>"
     },
     "popupButtonCopy": {
         "message": "Copy to clipboard"
@@ -91,5 +91,17 @@
     },
     "notCopiedToClipboard": {
         "message": "An error has occured while trying to copy the list to your clipboard."
+    },
+    "optionsCustomSectionHeader": {
+        "message": "Custom section header"
+    },
+    "optionsCustomSectionHeaderPlaceholder": {
+        "message": "none"
+    },
+    "optionsButtonResetSectionHeader": {
+        "message": "Reset"
+    },
+    "optionsCustomSectionHeaderDescription": {
+        "message": "<p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{window-id}</code>: ID of the window</li><li><code>{tab-group}</code>: name of the tab group (or \"Ungrouped\")</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>--- {tab-group} ---\\r\\n</code></p>"
     }
 }

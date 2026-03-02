@@ -69,7 +69,7 @@
         "message": "Fenêtre et groupe d'onglets"
     },
     "optionsGroupByDescription": {
-        "message": "<p>Lorsque cette option est activée, les onglets exportés sont organisés en sections avec des en-têtes.</p>"
+        "message": "<p>Lorsque cette option est activée, les onglets exportés sont organisés en sections avec des en-têtes.</p><p>Vous pouvez définir un en-tête de section personnalisé.</p>"
     },
     "popupButtonCopy": {
         "message": "Copier dans le presse-papier"
@@ -91,5 +91,17 @@
     },
     "notCopiedToClipboard": {
         "message": "Une erreur est survenue lors de la tentative de copie dans le presse-papier."
+    },
+    "optionsCustomSectionHeader": {
+        "message": "En-tête de section personnalisé"
+    },
+    "optionsCustomSectionHeaderPlaceholder": {
+        "message": "aucun"
+    },
+    "optionsButtonResetSectionHeader": {
+        "message": "Réinitialiser"
+    },
+    "optionsCustomSectionHeaderDescription": {
+        "message": "<p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{window-id}</code>: ID de la fenêtre</li><li><code>{tab-group}</code>: nom du groupe d'onglets (ou \"Non groupé\")</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>--- {tab-group} ---\\r\\n</code></p>"
     }
 }

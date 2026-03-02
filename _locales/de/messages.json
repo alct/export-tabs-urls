@@ -69,7 +69,7 @@
         "message": "Fenster und Tab-Gruppe"
     },
     "optionsGroupByDescription": {
-        "message": "<p>Wenn aktiviert, werden die exportierten Tabs in Abschnitte mit Überschriften organisiert.</p>"
+        "message": "<p>Wenn aktiviert, werden die exportierten Tabs in Abschnitte mit Überschriften organisiert.</p><p>Sie können hier einen benutzerdefinierten Abschnitts-Header.</p>"
     },
     "popupButtonCopy": {
         "message": "In die Zwischenablage kopieren"
@@ -91,5 +91,17 @@
     },
     "notCopiedToClipboard": {
         "message": "Beim Speichern in die Zwischenablage ist ein Fehler aufgetreten."
+    },
+    "optionsCustomSectionHeader": {
+        "message": "Benutzerdefinierter Abschnitts-Header"
+    },
+    "optionsCustomSectionHeaderPlaceholder": {
+        "message": "keiner"
+    },
+    "optionsButtonResetSectionHeader": {
+        "message": "Zurücksetzen"
+    },
+    "optionsCustomSectionHeaderDescription": {
+        "message": "<p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{window-id}</code>: ID des Fensters</li><li><code>{tab-group}</code>: Name der Tab-Gruppe (oder \"Nicht gruppiert\")</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>--- {tab-group} ---\\r\\n</code></p>"
     }
 }

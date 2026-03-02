@@ -15,6 +15,7 @@ let optionsFormatCustomTab;
 let optionsFilterTabs;
 let optionsCustomGlobalHeader;
 let optionsGroupBy;
+let optionsCustomSectionHeader;
 let groupMap;
 
 async function init () {
@@ -113,7 +114,7 @@ async function init () {
             tabURL,
             tabWindowId,
             tabGroupId: tabGroupId ?? -1,
-            tabGroupName: groupMap.get(tabGroupId) || ''
+            tabGroupName: groupMap.get(tabGroupId) || 'Ungrouped'
           });
         }
       }
@@ -124,7 +125,7 @@ async function init () {
     if (optionsGroupBy === 'none') {
       list = buildFlatList(filtered, format, formatContainsHtml);
     } else {
-      list = buildGroupedList(filtered, format, formatContainsHtml, optionsGroupBy);
+      list = buildGroupedList(filtered, format, formatContainsHtml, optionsGroupBy, optionsCustomSectionHeader);
     }
 
     popupTextarea.value = '';
@@ -175,36 +176,44 @@ async function init () {
     return list;
   }
 
-  function buildGroupedList (tabs, format, formatContainsHtml, groupBy) {
+  function buildGroupedList (tabs, format, formatContainsHtml, groupBy, customSectionHeader) {
     const sections = new Map();
 
     for (const tab of tabs) {
-      let key, label;
+      let key, label, windowId, groupName;
 
       if (groupBy === 'window') {
         key = `w-${tab.tabWindowId}`;
         label = `Window ${tab.tabWindowId}`;
+        windowId = String(tab.tabWindowId);
+        groupName = '';
       } else if (groupBy === 'tab-group') {
+        windowId = '';
         if (tab.tabGroupId === -1) {
           key = 'g-none';
           label = 'Ungrouped';
+          groupName = 'Ungrouped';
         } else {
           key = `g-${tab.tabGroupId}`;
           label = tab.tabGroupName || `Group ${tab.tabGroupId}`;
+          groupName = tab.tabGroupName || `Group ${tab.tabGroupId}`;
         }
       } else if (groupBy === 'both') {
+        windowId = String(tab.tabWindowId);
         if (tab.tabGroupId === -1) {
           key = `w-${tab.tabWindowId}-g-none`;
           label = `Window ${tab.tabWindowId} \u203A Ungrouped`;
+          groupName = 'Ungrouped';
         } else {
           const gName = tab.tabGroupName || `Group ${tab.tabGroupId}`;
           key = `w-${tab.tabWindowId}-g-${tab.tabGroupId}`;
           label = `Window ${tab.tabWindowId} \u203A ${gName}`;
+          groupName = gName;
         }
       }
 
       if (!sections.has(key)) {
-        sections.set(key, { label, tabs: [] });
+        sections.set(key, { label, windowId, groupName, tabs: [] });
       }
       sections.get(key).tabs.push(tab);
     }
@@ -214,7 +223,18 @@ async function init () {
 
     for (const [, section] of sections) {
       if (!isFirst) list += '\r\n';
-      list += `## ${section.label}\r\n\r\n`;
+
+      if (customSectionHeader) {
+        list += customSectionHeader
+          .replace(/\\n/g, '\n')
+          .replace(/\\r/g, '\r')
+          .replace(/{window-id}/g, section.windowId)
+          .replace(/{tab-group}/g, section.groupName);
+        list += '\r\n';
+      } else {
+        list += `## ${section.label}\r\n\r\n`;
+      }
+
       for (const tab of section.tabs) {
         list += formatTab(tab, format, formatContainsHtml);
       }
@@ -331,6 +351,7 @@ async function init () {
     optionsFilterTabs = items.options.filterTabs;
     optionsCustomGlobalHeader = items.options.customHeader;
     optionsGroupBy = items.options.groupBy || 'none';
+    optionsCustomSectionHeader = items.options.customSectionHeader;
   }
 }
 

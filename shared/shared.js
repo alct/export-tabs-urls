@@ -5,7 +5,8 @@ export const defaultOptions = {
     formatCustom: '',
     filterTabs: true,
     customHeader: '',
-    groupBy: 'none'
+    groupBy: 'none',
+    customSectionHeader: ''
   }
 };
 

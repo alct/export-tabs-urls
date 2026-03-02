@@ -6,6 +6,12 @@ This add-on started as a personal hobby project, a way to learn and scratch a si
 
 For context on the deliberate lack of Chrome(ium) support, please [see my comment there](https://github.com/alct/export-tabs-urls/issues/14#issuecomment-498904695).
 
+## Redistribution
+
+If you redistribute a modified version of this add-on, please use a different name and icon to avoid confusion with the original project.
+
+This is a request, not a license restriction.
+
 ## Features
 
 - **Include titles**: ETU provides a default format which displays titles along tabs URLs ;

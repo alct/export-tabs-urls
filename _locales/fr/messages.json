@@ -103,5 +103,17 @@
     },
     "optionsCustomSectionHeaderDescription": {
         "message": "<p>Vous pouvez utiliser n'importe quelle combinaison de caractères et les blocs spéciaux suivants:</p><ul><li><code>{window-id}</code>: ID de la fenêtre</li><li><code>{tab-group}</code>: nom du groupe d'onglets (ou \"Non groupé\")</li><li><code>\\r\\n</code>: nouvelle ligne</li></ul><p>Exemple: <code>--- {tab-group} ---\\r\\n</code></p>"
+    },
+    "optionsCustomFilename": {
+        "message": "Nom de fichier personnalisé"
+    },
+    "optionsCustomFilenamePlaceholder": {
+        "message": "aucun"
+    },
+    "optionsButtonResetFilename": {
+        "message": "Réinitialiser"
+    },
+    "optionsCustomFilenameDescription": {
+        "message": "<p>Vous pouvez définir un nom de fichier personnalisé pour le fichier exporté. Si vide, le format par défaut est utilisé : <code>{timestamp}_ExportTabsURLs.txt</code>.</p><p>Espaces réservés disponibles :</p><ul><li><code>{timestamp}</code> : horodatage compact (ex. 20260304T153045+0100)</li><li><code>{date}</code> : date actuelle (AAAA-MM-JJ)</li><li><code>{time}</code> : heure actuelle (HH-mm-SS)</li><li><code>{utc-offset}</code> : décalage UTC (ex. +01-00)</li><li><code>{num-tabs}</code> : nombre d'onglets exportés</li></ul><p>Les caractères non autorisés dans les noms de fichiers sont automatiquement remplacés par des tirets.</p><p>Exemple : <code>tabs_{date}_{num-tabs}.md</code></p>"
     }
 }

@@ -6,7 +6,8 @@ export const defaultOptions = {
     filterTabs: true,
     customHeader: '',
     groupBy: 'none',
-    customSectionHeader: ''
+    customSectionHeader: '',
+    customFilename: ''
   }
 };
 

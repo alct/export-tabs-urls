@@ -103,5 +103,17 @@
     },
     "optionsCustomSectionHeaderDescription": {
         "message": "<p>Sie können eine beliebige Zeichenfolge und die folgenden speziellen Blöcke verwenden:</p><ul><li><code>{window-id}</code>: ID des Fensters</li><li><code>{tab-group}</code>: Name der Tab-Gruppe (oder \"Nicht gruppiert\")</li><li><code>\\r\\n</code>: neue Zeile</li></ul><p>Beispiel: <code>--- {tab-group} ---\\r\\n</code></p>"
+    },
+    "optionsCustomFilename": {
+        "message": "Benutzerdefinierter Dateiname"
+    },
+    "optionsCustomFilenamePlaceholder": {
+        "message": "keiner"
+    },
+    "optionsButtonResetFilename": {
+        "message": "Zurücksetzen"
+    },
+    "optionsCustomFilenameDescription": {
+        "message": "<p>Sie können einen benutzerdefinierten Dateinamen für die exportierte Datei festlegen. Wenn leer, wird das Standardformat verwendet: <code>{timestamp}_ExportTabsURLs.txt</code>.</p><p>Verfügbare Platzhalter:</p><ul><li><code>{timestamp}</code>: kompakter Zeitstempel (z.B. 20260304T153045+0100)</li><li><code>{date}</code>: aktuelles Datum (JJJJ-MM-TT)</li><li><code>{time}</code>: aktuelle Uhrzeit (HH-mm-SS)</li><li><code>{utc-offset}</code>: UTC-Offset (z.B. +01-00)</li><li><code>{num-tabs}</code>: Anzahl der exportierten Tabs</li></ul><p>Unzulässige Zeichen in Dateinamen werden automatisch durch Bindestriche ersetzt.</p><p>Beispiel: <code>tabs_{date}_{num-tabs}.md</code></p>"
     }
 }

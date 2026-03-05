@@ -103,5 +103,17 @@
     },
     "optionsCustomSectionHeaderDescription": {
         "message": "<p>You can use any combination of characters and the following special blocks:</p><ul><li><code>{window-id}</code>: ID of the window</li><li><code>{tab-group}</code>: name of the tab group (or \"Ungrouped\")</li><li><code>\\r\\n</code>: new line</li></ul><p>Example: <code>--- {tab-group} ---\\r\\n</code></p>"
+    },
+    "optionsCustomFilename": {
+        "message": "Custom export filename"
+    },
+    "optionsCustomFilenamePlaceholder": {
+        "message": "none"
+    },
+    "optionsButtonResetFilename": {
+        "message": "Reset"
+    },
+    "optionsCustomFilenameDescription": {
+        "message": "<p>You can define a custom filename for the exported file. When empty, the default format is used: <code>{timestamp}_ExportTabsURLs.txt</code>.</p><p>Available placeholders:</p><ul><li><code>{timestamp}</code>: compact timestamp (e.g. 20260304T153045+0100)</li><li><code>{date}</code>: current date (YYYY-MM-DD)</li><li><code>{time}</code>: current time (HH-mm-SS)</li><li><code>{utc-offset}</code>: UTC offset (e.g. +01-00)</li><li><code>{num-tabs}</code>: number of exported tabs</li></ul><p>Characters not allowed in filenames are automatically replaced with dashes.</p><p>Example: <code>tabs_{date}_{num-tabs}.md</code></p>"
     }
 }

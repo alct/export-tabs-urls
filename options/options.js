@@ -12,6 +12,8 @@ async function init () {
   const optionsCustomSectionHeader = document.querySelector('#options-custom-section-header');
   const optionsButtonResetSectionHeader = document.querySelector('#options-button-reset-section-header');
   const optionsSectionHeaderContainer = document.querySelector('.option-section-header');
+  const optionsCustomFilename = document.querySelector('#options-custom-filename');
+  const optionsButtonResetFilename = document.querySelector('#options-button-reset-filename');
 
   optionsIgnoreNonHTTP.addEventListener('change', saveOptions);
   optionsIgnorePinned.addEventListener('change', saveOptions);
@@ -54,6 +56,17 @@ async function init () {
     updateResetVisibility();
   });
 
+  optionsCustomFilename.addEventListener('input', () => {
+    saveOptions();
+    updateResetVisibility();
+  });
+
+  optionsButtonResetFilename.addEventListener('click', () => {
+    optionsCustomFilename.value = '';
+    saveOptions();
+    updateResetVisibility();
+  });
+
   await restoreOptions();
   localization();
 
@@ -61,6 +74,7 @@ async function init () {
     optionsButtonResetTabFormat.classList.toggle('hidden', optionsFormatCustomTab.value === '');
     optionsButtonResetGlobalHeader.classList.toggle('hidden', optionsCustomGlobalHeader.value === '');
     optionsButtonResetSectionHeader.classList.toggle('hidden', optionsCustomSectionHeader.value === '');
+    optionsButtonResetFilename.classList.toggle('hidden', optionsCustomFilename.value === '');
   }
 
   function updateSectionHeaderVisibility () {
@@ -76,6 +90,7 @@ async function init () {
     optionsCustomGlobalHeader.value = items.options.customHeader;
     optionsGroupBy.value = items.options.groupBy || 'none';
     optionsCustomSectionHeader.value = items.options.customSectionHeader;
+    optionsCustomFilename.value = items.options.customFilename || '';
     updateResetVisibility();
     updateSectionHeaderVisibility();
   }
@@ -89,7 +104,8 @@ async function init () {
         filterTabs: optionsFilterTabs.checked,
         customHeader: optionsCustomGlobalHeader.value,
         groupBy: optionsGroupBy.value,
-        customSectionHeader: optionsCustomSectionHeader.value
+        customSectionHeader: optionsCustomSectionHeader.value,
+        customFilename: optionsCustomFilename.value
       }
     });
   }

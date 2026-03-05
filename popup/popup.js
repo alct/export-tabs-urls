@@ -16,6 +16,7 @@ let optionsFilterTabs;
 let optionsCustomGlobalHeader;
 let optionsGroupBy;
 let optionsCustomSectionHeader;
+let optionsCustomFilename;
 let groupMap;
 
 async function init () {
@@ -64,6 +65,8 @@ async function init () {
   popupButtonExport.addEventListener('click', download);
 
   localization();
+
+  let lastExportedCount = 0;
 
   async function updatePopup () {
     const [tabs, latestGroupMap] = await Promise.all([
@@ -147,6 +150,7 @@ async function init () {
 
     popupTextarea.value += list;
     popupCounter.textContent = (userInput !== '') ? `${nbFilterMatch} / ${actualNbTabs}` : String(actualNbTabs);
+    lastExportedCount = (userInput !== '') ? nbFilterMatch : actualNbTabs;
 
     popupTextareaContainer.classList.toggle('has-scrollbar', hasScrollbar(popupTextarea));
     popupFilterTabs.focus();
@@ -303,6 +307,26 @@ async function init () {
     }, 3000);
   }
 
+  function buildFilename () {
+    const ts = getTimestampParts();
+    const defaultName = `${ts.compact}_ExportTabsURLs.txt`;
+
+    if (!optionsCustomFilename) {
+      return defaultName;
+    }
+
+    let name = optionsCustomFilename
+      .replace(/{timestamp}/g, ts.compact)
+      .replace(/{date}/g, ts.date)
+      .replace(/{time}/g, ts.time.replace(/:/g, '-'))
+      .replace(/{utc-offset}/g, ts.utcOffset.replace(/:/g, '-'))
+      .replace(/{num-tabs}/g, lastExportedCount);
+
+    name = name.replace(/[<>:"/\\|?*\x00-\x1f]/g, '-');
+
+    return name.trim() || defaultName;
+  }
+
   function download () {
     let list = popupTextarea.value;
 
@@ -311,13 +335,12 @@ async function init () {
       list = list.replace(/\r?\n/g, '\r\n');
     }
 
-    const { compact: timestamp } = getTimestampParts();
     const blob = new Blob([list], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
 
     const element = document.createElement('a');
     element.href = url;
-    element.download = `${timestamp}_ExportTabsURLs.txt`;
+    element.download = buildFilename();
     element.style.display = 'none';
 
     document.body.appendChild(element);
@@ -352,6 +375,7 @@ async function init () {
     optionsCustomGlobalHeader = items.options.customHeader;
     optionsGroupBy = items.options.groupBy || 'none';
     optionsCustomSectionHeader = items.options.customSectionHeader;
+    optionsCustomFilename = items.options.customFilename;
   }
 }
 

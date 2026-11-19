@@ -1,0 +1,119 @@
+{
+    "appButtonDesc": {
+        "message": "Export Tabs URLs"
+    },
+    "appName": {
+        "message": "Export Tabs URLs"
+    },
+    "appDesc": {
+        "message": "Guarda en un archivo de texto la lista de todas las pestañas abiertas."
+    },
+    "optionsFormatCustomTab": {
+        "message": "Formato de pestaña personalizado"
+    },
+    "optionsFormatCustomTabPlaceholder": {
+        "message": "ninguno"
+    },
+    "optionsButtonResetTabFormat": {
+        "message": "Restablecer"
+    },
+    "optionsButtonResetGlobalHeader": {
+        "message": "Restablecer"
+    },
+    "optionsFormatCustomTabDescription": {
+        "message": "<p>Puedes definir un formato de pestaña personalizado en lugar del predeterminado \"Incluir títulos\".</p><p>Puedes usar cualquier combinación de caracteres y los siguientes bloques especiales:</p><ul><li><code>{title}</code>: título de una pestaña</li><li><code>{url}</code>: URL de una pestaña</li><li><code>{window-id}</code>: ID de la ventana que contiene una pestaña</li><li><code>{tab-group}</code>: nombre del grupo de la pestaña (vacío si no está agrupada)</li><li><code>\\r\\n</code>: salto de línea</li></ul><p>Ejemplo: <code>[{title}]({url})\\r\\n</code></p>"
+    },
+    "optionsIgnoreNonHTTP": {
+        "message": "Ignorar las URL que no sean HTTP(S)"
+    },
+    "optionsIgnoreNonHTTPDescription": {
+        "message": "<p>Esta opción impide que Export Tabs URLs incluya en la lista las pestañas cuyo esquema de URL sea distinto de <code>http://</code> o <code>https://</code>.</p>"
+    },
+    "optionsIgnorePinned": {
+        "message": "Ignorar las pestañas fijadas"
+    },
+    "optionsIgnorePinnedDescription": {
+        "message": "<p>Esta opción impide que Export Tabs URLs incluya en la lista las pestañas fijadas.</p>"
+    },
+    "optionsFilterTabs": {
+        "message": "Activar el filtrado de pestañas"
+    },
+    "optionsFilterTabsDescription": {
+        "message": "<p>Esta opción añade una función de filtrado a Export Tabs URLs.</p><p>La búsqueda se hace tanto en el título como en la URL (aunque no se muestren).</p><p>Puedes usar <a href=\"https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_expressions#usar_caracteres_especiales\">expresiones regulares</a>.</p><p>Ejemplo:</p><ul><li><code>carr?o</code>: coincide con caro y carro</li><li><code>(stackoverflow|github).com</code>: coincide con stackoverflow.com y github.com</li></ul>"
+    },
+    "popupFilterTabsPlaceholder": {
+        "message": "Filtrar pestañas"
+    },
+    "optionsCustomGlobalHeader": {
+        "message": "Encabezado global personalizado"
+    },
+    "optionsCustomGlobalHeaderPlaceholder": {
+        "message": "ninguno"
+    },
+    "optionsCustomGlobalHeaderDescription": {
+        "message": "<p>Aquí puedes definir un encabezado global personalizado.</p><p>Puedes usar cualquier combinación de caracteres y los siguientes bloques especiales:</p><ul><li><code>{date}</code>: fecha actual (AAAA-MM-DD)</li><li><code>{time}</code>: hora actual (HH:mm:SS)</li><li><code>{utc-offset}</code>: desfase horario respecto a UTC (p. ej., +01:00)</li><li><code>{num-tabs}</code>: número de pestañas</li><li><code>\\r\\n</code>: salto de línea</li></ul><p>Ejemplo: <code>Exportado el {date} a las {time} (n.º de enlaces: {num-tabs})\\r\\n</code></p>"
+    },
+    "optionsGroupBy": {
+        "message": "Agrupar pestañas por"
+    },
+    "optionsGroupByNone": {
+        "message": "Sin agrupar"
+    },
+    "optionsGroupByWindow": {
+        "message": "Ventana"
+    },
+    "optionsGroupByTabGroup": {
+        "message": "Grupo de pestañas"
+    },
+    "optionsGroupByBoth": {
+        "message": "Ventana y grupo de pestañas"
+    },
+    "optionsGroupByDescription": {
+        "message": "<p>Si se activa, las pestañas exportadas se organizan en secciones con encabezados.</p><p>Puedes definir un encabezado de sección personalizado.</p>"
+    },
+    "popupButtonCopy": {
+        "message": "Copiar al portapapeles"
+    },
+    "popupButtonExport": {
+        "message": "Exportar como archivo"
+    },
+    "popupLimitWindow": {
+        "message": "Limitar a la ventana actual"
+    },
+    "popupLabelFormatCustomTab": {
+        "message": "Formato de pestaña personalizado"
+    },
+    "popupLabelFormatTitles": {
+        "message": "Incluir títulos"
+    },
+    "copiedToClipboard": {
+        "message": "La lista se ha copiado al portapapeles."
+    },
+    "notCopiedToClipboard": {
+        "message": "Se ha producido un error al intentar copiar la lista al portapapeles."
+    },
+    "optionsCustomSectionHeader": {
+        "message": "Encabezado de sección personalizado"
+    },
+    "optionsCustomSectionHeaderPlaceholder": {
+        "message": "ninguno"
+    },
+    "optionsButtonResetSectionHeader": {
+        "message": "Restablecer"
+    },
+    "optionsCustomSectionHeaderDescription": {
+        "message": "<p>Puedes usar cualquier combinación de caracteres y los siguientes bloques especiales:</p><ul><li><code>{window-id}</code>: ID de la ventana</li><li><code>{tab-group}</code>: nombre del grupo de pestañas (o \"Ungrouped\")</li><li><code>\\r\\n</code>: salto de línea</li></ul><p>Ejemplo: <code>--- {tab-group} ---\\r\\n</code></p>"
+    },
+    "optionsCustomFilename": {
+        "message": "Nombre personalizado del archivo exportado"
+    },
+    "optionsCustomFilenamePlaceholder": {
+        "message": "ninguno"
+    },
+    "optionsButtonResetFilename": {
+        "message": "Restablecer"
+    },
+    "optionsCustomFilenameDescription": {
+        "message": "<p>Puedes definir un nombre personalizado para el archivo exportado. Si se deja vacío, se usa el formato predeterminado: <code>{timestamp}_ExportTabsURLs.txt</code>.</p><p>Marcadores disponibles:</p><ul><li><code>{timestamp}</code>: marca de tiempo compacta (p. ej., 20260304T153045+0100)</li><li><code>{date}</code>: fecha actual (AAAA-MM-DD)</li><li><code>{time}</code>: hora actual (HH-mm-SS)</li><li><code>{utc-offset}</code>: desfase horario respecto a UTC (p. ej., +01-00)</li><li><code>{num-tabs}</code>: número de pestañas exportadas</li></ul><p>Los caracteres no permitidos en los nombres de archivo se sustituyen automáticamente por guiones.</p><p>Ejemplo: <code>tabs_{date}_{num-tabs}.md</code></p>"
+    }
+}
